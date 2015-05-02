@@ -5,7 +5,7 @@ import scalafx.scene.paint.Color
 import scalafx.scene.shape.Rectangle
 
 /**
- * Nach http://www.scalafx.org/
+ * TODO Alle: nachlesen http://www.scalafx.org/docs/home/
  */
 object GomokuLauncher extends JFXApp {
 
