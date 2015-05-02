@@ -1,3 +1,5 @@
+package scalafxsample
+
 import scalafx.Includes._
 import scalafx.application.JFXApp
 import scalafx.scene.Scene
@@ -7,7 +9,7 @@ import scalafx.scene.shape.Rectangle
 /**
  * TODO Alle: nachlesen http://www.scalafx.org/docs/home/
  */
-object GomokuLauncher extends JFXApp {
+object HoverSample extends JFXApp {
 
   stage = new JFXApp.PrimaryStage {
     title.value = "Hello Stage"
