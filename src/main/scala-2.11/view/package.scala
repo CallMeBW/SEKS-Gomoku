@@ -6,4 +6,6 @@ package object view {
   val gomokuTitle = "Gomoku"
   val gomokuWidth = screenSize.width * screenSizeFactor._1
   val gomokuHeight = screenSize.height * screenSizeFactor._2
+  val cameraNearClip = 2
+  val cameraFarClip = 10000
 }
