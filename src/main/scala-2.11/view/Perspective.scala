@@ -1,13 +1,13 @@
 package view
 
 import scalafx.scene.PerspectiveCamera
-import scalafx.scene.input.{MouseEvent, ScrollEvent}
+import scalafx.scene.input.{KeyEvent, MouseEvent, ScrollEvent}
 
 trait Perspective {
 
-  case class Setting(zoom: Int, rX: Int, rY: Int, rZ: Int, tZ: Int)
+  case class Aspect(zoom: Int, rX: Int, rY: Int, rZ: Int, tZ: Int)
 
-  val wholeBoard = Setting(-1500, 35, 0, 180, 0)
+  val wholeBoard = Aspect(-1500, 35, 0, 180, 0)
   /**
    * (xyRot,xyTrans,zRot)
    */
@@ -17,6 +17,13 @@ trait Perspective {
     farClip = cameraFarClip
   }
   private final val cameraDistance: Double = 450
+  private var mousePosX: Double = .0
+  private var mousePosY: Double = .0
+  private var mouseOldX: Double = .0
+  private var mouseOldY: Double = .0
+  private var mouseDeltaX: Double = .0
+  private var mouseDeltaY: Double = .0
+
   camGroups._1.children.add(camGroups._2)
   camGroups._2.children.add(camGroups._3)
   camGroups._3.children.add(cam)
@@ -26,12 +33,11 @@ trait Perspective {
   cam.translateZ = -cameraDistance
   camGroups._1.ry.angle = 40
   camGroups._1.rx.angle = 40
-  private var mousePosX: Double = .0
-  private var mousePosY: Double = .0
-  private var mouseOldX: Double = .0
-  private var mouseOldY: Double = .0
-  private var mouseDeltaX: Double = .0
-  private var mouseDeltaY: Double = .0
+
+
+  def onKey(keyEvent: KeyEvent): Unit = keyEvent match {
+    case _ =>
+  }
 
   def onScroll(scrollEvent: ScrollEvent): Unit = {
     val z = cam.translateZ()
