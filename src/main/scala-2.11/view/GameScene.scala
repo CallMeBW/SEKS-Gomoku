@@ -1,19 +1,31 @@
 package view
 
-import javafx.scene.paint.Color
 
-import scalafx.scene.paint.PhongMaterial
+import scalafx.scene._
+import scalafx.scene.paint.{Color, PhongMaterial}
 import scalafx.scene.shape.Box
-import scalafx.scene.{Node, Group, Scene}
 
-class GameScene(root: Group) extends Scene(root) with Perspective {
+class GameScene(root: Group)
+  extends Scene(root, gomokuWidth, gomokuHeight, true, SceneAntialiasing.Balanced)
+  with Perspective {
+  val world: javafx.scene.Group = new EnhGroup()
+  root.children.add(world)
+  root.children.add(camGroups._1)
   camera = cam
-  val world = new EnhancedGroup()
-  root.children addAll(camGroups._1, world)
-  world.children add new Box() {
-    width = 200
-    height = 200
-    depth = 2000
-    material = new PhongMaterial(Color.LIGHTGREEN)
-  }.asInstanceOf[Node]
+  buildNodes()
+
+
+  private def buildNodes() {
+    val redMaterial = new PhongMaterial {
+      diffuseColor = Color.DARKRED
+      specularColor = Color.RED
+    }
+    val zAxis = new Box(200, 150, 90) {
+      material = redMaterial
+    }
+    world.getChildren.add(zAxis)
+  }
+
 }
+
+
