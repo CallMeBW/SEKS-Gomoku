@@ -1,7 +1,6 @@
 package view
 
 import scalafx.application.JFXApp.PrimaryStage
-import scalafx.scene.Group
 
 class GomokuAppStage extends PrimaryStage {
   width = gomokuWidth

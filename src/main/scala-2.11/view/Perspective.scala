@@ -33,20 +33,20 @@ trait Perspective {
   private var mouseDeltaX: Double = .0
   private var mouseDeltaY: Double = .0
 
-  def onScroll(scrollEvent: ScrollEvent): Unit ={
+  def onScroll(scrollEvent: ScrollEvent): Unit = {
     val z = cam.translateZ()
     val newZ = z + scrollEvent.deltaY
     cam.translateZ = newZ
   }
 
-  def onPress(mouseEvent: MouseEvent): Unit ={
+  def onPress(mouseEvent: MouseEvent): Unit = {
     mousePosX = mouseEvent.sceneX
     mousePosY = mouseEvent.sceneY
     mouseOldX = mouseEvent.sceneX
     mouseOldY = mouseEvent.sceneY
   }
 
-  def onDrag(me: MouseEvent): Unit ={
+  def onDrag(me: MouseEvent): Unit = {
     mouseOldX = mousePosX
     mouseOldY = mousePosY
     mousePosX = me.sceneX
@@ -59,8 +59,8 @@ trait Perspective {
       camGroups._1.ry.angle = camGroups._1.ry.angle() - mouseDeltaX * modifierFactor * modifier * 2.0
       camGroups._1.rx.angle = camGroups._1.rx.angle() + mouseDeltaY * modifierFactor * modifier * 2.0
     } else if (me.isMiddleButtonDown) {
-     camGroups._2.t.x = camGroups._2.t.x() + mouseDeltaX * modifierFactor * modifier * 0.3
-     camGroups._2.t.x = camGroups._2.t.y() + mouseDeltaY * modifierFactor * modifier * 0.3
+      camGroups._2.t.x = camGroups._2.t.x() + mouseDeltaX * modifierFactor * modifier * 0.3
+      camGroups._2.t.x = camGroups._2.t.y() + mouseDeltaY * modifierFactor * modifier * 0.3
     }
   }
 }

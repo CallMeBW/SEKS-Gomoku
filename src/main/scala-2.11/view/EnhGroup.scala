@@ -1,9 +1,10 @@
 package view
 
 import scalafx.Includes._
-import scalafx.scene.transform.{Scale, Rotate, Translate}
+import scalafx.scene.transform.{Rotate, Scale, Translate}
 
 object EnhGroup {
+
   object RotateOrder {
     final val XYZ = RotateOrder("XYZ")
     final val XZY = RotateOrder("XZY")
@@ -62,10 +63,13 @@ class EnhGroup extends javafx.scene.Group {
     t.y = y
   }
 
-  def rx : Rotate = _rx
-  def ry : Rotate = _ry
-  def rz : Rotate = _rz
-  def t : Translate = _t
+  def rx: Rotate = _rx
+
+  def ry: Rotate = _ry
+
+  def rz: Rotate = _rz
+
+  def t: Translate = _t
 
   def setRotate(x: Double, y: Double, z: Double) {
     _rx.angle = x
@@ -78,11 +82,13 @@ class EnhGroup extends javafx.scene.Group {
   }
 
   def rotateY = _ry.angle
+
   def rotateY_=(y: Double) {
     _ry.angle = y
   }
 
-  def rotateZ:Double = _rz.angle()
+  def rotateZ: Double = _rz.angle()
+
   def rotateZ_=(z: Double) {
     _rz.angle = z
   }
@@ -106,8 +112,8 @@ class EnhGroup extends javafx.scene.Group {
   }
 
   def setScale(x: Double, y: Double, z: Double) {
-    s.x=x
-    s.y=y
+    s.x = x
+    s.y = y
     s.z = z
   }
 

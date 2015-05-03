@@ -1,7 +1,6 @@
 package view
 
 import scalafx.Includes._
-import scalafx.animation.Timeline
 import scalafx.application.JFXApp
 import scalafx.scene._
 import scalafx.scene.input.{KeyEvent, MouseEvent, ScrollEvent}
@@ -10,7 +9,6 @@ object MoleculeSampleDemo extends JFXApp {
   app =>
 
   private final val root = new Group()
-
 
 
   stage = new JFXApp.PrimaryStage {
