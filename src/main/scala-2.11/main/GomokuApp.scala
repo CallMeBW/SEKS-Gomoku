@@ -10,7 +10,7 @@ import scalafx.scene.layout.{StackPane, AnchorPane}
 
 object GomokuApp extends JFXApp {
   val WELCOME = "Welcome to Gomoku!"
-  val WELCOME_MESSAGE = ""
+  val WELCOME_MESSAGE = "Gomoku is a game for two suckers that are bored. FUCK YOU!"
 
   stage = new PrimaryStage{
     title.value = "Gomoku"

@@ -9,7 +9,7 @@ import scalafx.scene.layout.AnchorPane
 import scalafx.stage.Stage
 
 class GameController {
-  //val table = new Table(10)
+  val table = new Table(10)
   val players = new Array[Player](2)
 
   def createPlayers() = {
