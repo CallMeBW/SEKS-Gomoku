@@ -24,8 +24,8 @@ class Table(val n: Int) {
     true
   }
 
-  def getEntry(x: Int, y: Int): String = {
-    table(x)(y).value
+  def getEntry(x: Int, y: Int): StringProperty = {
+    table(x)(y)
   }
 
   def winTest(x: Int, y: Int, s: String): Boolean =
