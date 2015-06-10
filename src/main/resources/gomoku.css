@@ -1,0 +1,34 @@
+#statusPane {
+    -fx-background-color: #DFB951;
+}
+
+#rootPane {
+  
+}
+
+#boardPane {
+	-fx-background-color: lightgray;
+	-fx-padding: 20 20 20 20
+}
+
+#setupPane {
+
+}
+
+#statusLabel {
+	-fx-text-fill: #006464;
+	-fx-font-size: 20
+}
+
+
+ .column-header-background { 
+	/* hide header of the tableview */
+	visibility: hidden; -fx-padding: -1em; 
+}
+
+#boardTableView {
+ 
+ 
+
+}
+
