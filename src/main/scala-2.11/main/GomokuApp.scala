@@ -14,6 +14,7 @@ object GomokuApp extends JFXApp {
 
   val controller = new GameController
 
+
   stage = new PrimaryStage{
     title.value = "Gomoku"
     width = 500

@@ -2,9 +2,10 @@ package control
 
 import model.Player
 
+
 class GameController() {
 
-  val table = new Table(10)
+  var table:Table = null
   val players = new Array[Player](2)
 
   def createPlayer(id:Int, name:String) ={
@@ -12,13 +13,15 @@ class GameController() {
   }
 
   def createTable(size:Int) = {
-
+    table = new Table(size)
   }
 
   def start() = {
-
+      ???
   }
 
   def getPlayers(): Array[Player] = players
+
+  def getTable():Table = table
 
 }

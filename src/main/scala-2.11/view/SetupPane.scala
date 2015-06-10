@@ -9,8 +9,6 @@ import scalafx.scene.layout.AnchorPane
 import scalafx.Includes._
 
 class SetupPane(gameController: GameController) extends AnchorPane {
-  prefHeight = 250
-  prefWidth = 300
 
   val welcomeLabel = new Label{
     text = GomokuApp.WELCOME
