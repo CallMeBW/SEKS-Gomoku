@@ -2,9 +2,9 @@ package view
 
 import control.GameController
 
-import scalafx.scene.control.Button
-import scalafx.scene.layout.{Pane, GridPane, AnchorPane}
 import scalafx.Includes._
+import scalafx.scene.control.Button
+import scalafx.scene.layout.{AnchorPane, GridPane}
 
 class Board(gameController: GameController) extends AnchorPane {
 
@@ -12,8 +12,8 @@ class Board(gameController: GameController) extends AnchorPane {
   gridPane.setHgap(5);
   gridPane.setVgap(5);
 
-  for (a <- gameController.table.size) {
-    for(b <- gameController.table.size) {
+  for (a <- 0 to gameController.table.size - 1) {
+    for(b <- 0 to gameController.table.size - 1) {
       val button = new Button{
         text.bind(gameController.table.getEntry(a,b))
         onAction = handle{

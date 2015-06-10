@@ -14,6 +14,8 @@ object GomokuApp extends JFXApp {
 
   val controller = new GameController
 
+  var setupPane:SetupPane = null
+  var statusPane:StatusPane = null
 
   stage = new PrimaryStage{
     title.value = "Gomoku"
@@ -22,8 +24,8 @@ object GomokuApp extends JFXApp {
     val stackPane = new StackPane()
     scene = new Scene {
       content = new AnchorPane{
-        val setupPane = new SetupPane(controller)
-        val statusPane = new StatusPane()
+        setupPane = new SetupPane(controller)
+        statusPane = new StatusPane()
         stackPane.children.add(setupPane)
       }
     }
