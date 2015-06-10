@@ -78,6 +78,7 @@ class SetupPane(gameController: GameController) extends AnchorPane {
     }
     layoutX = 312
     layoutY = 350
+    stylesheets add "style.css"
   }
 
   children ++= Seq(startButton, welcomeLabel, p1TextField, p2TextField, sizeSlider, descriptionLabel, gridSizeLabel)
