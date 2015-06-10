@@ -27,9 +27,13 @@ class Table(val n: Int) {
   }
 
 
-  def winTest(x: Int, y: Int, s: Char): Boolean = {
+  def ||(b: Boolean) = ???
 
-  }
+  def winTest(x: Int, y: Int, s: Char): Boolean =
+  check(x, y, s, 0) + check(x, y, s, 4) - 1 == 5 ||
+  check(x, y, s, 1) + check(x, y, s, 5) - 1 == 5 ||
+  check(x, y, s, 2) + check(x, y, s, 6) - 1 == 5 ||
+  check(x, y, s, 3) + check(x, y, s, 7) - 1 == 5
 
   /**
    * Kaz-Mayer-Algorithm
