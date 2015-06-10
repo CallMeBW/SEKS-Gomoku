@@ -55,6 +55,7 @@ class GameController {
         }
       }
       dialogStage.showAndWait()
+
     }
   }
 
