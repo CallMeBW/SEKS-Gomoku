@@ -7,26 +7,28 @@ import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
 import scalafx.scene.layout.{AnchorPane, StackPane}
+import scalafx.scene.paint.Color
 
 object GomokuApp extends JFXApp {
   val WELCOME = "Welcome to Gomoku!"
-  val WELCOME_MESSAGE = "Gomoku is a game for two suckers that are bored. FUCK YOU!"
+  val WELCOME_MESSAGE = "Gomoku is a game for two players. The players alternately put their symbol on th board. The player who has 5 of his symbols in a row wins this gomoku."
 
   val controller = new GameController
+  val setupPane = new SetupPane(controller){
 
-  var setupPane:SetupPane = null
-  var statusPane:StatusPane = null
+    prefWidth = 700
+    prefHeight = 460
+  }
+  val statusPane = new StatusPane()
 
   stage = new PrimaryStage{
     title.value = "Gomoku"
-    width = 500
+    width = 700
     height = 500
-    val stackPane = new StackPane()
+    resizable = false
     scene = new Scene {
       content = new AnchorPane{
-        setupPane = new SetupPane(controller)
-        statusPane = new StatusPane()
-        stackPane.children.add(setupPane)
+        children add setupPane
       }
     }
   }

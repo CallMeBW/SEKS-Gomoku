@@ -12,14 +12,33 @@ class SetupPane(gameController: GameController) extends AnchorPane {
 
   val welcomeLabel = new Label{
     text = GomokuApp.WELCOME
+    layoutX = 250
+    layoutY = 50
   }
-  val playerNameOne = new TextField
-  val playerNameTwo = new TextField
+
+  val descriptionLabel = new Label{
+    text = GomokuApp.WELCOME_MESSAGE
+    wrapText = true
+    prefWidth <== this.width
+    layoutX = 250
+    layoutY = 100
+  }
+
+  val playerNameOne = new TextField{
+    layoutX = 150
+    layoutY = 200
+  }
+  val playerNameTwo = new TextField{
+    layoutX = 350
+    layoutY = 200
+  }
   val sizeSlider = new Slider{
     majorTickUnit = 1
     minorTickCount = 1
     min = 5
     max = 20
+    layoutX = 300
+    layoutY = 300
   }
 
   val submit = new Button{
@@ -28,8 +47,17 @@ class SetupPane(gameController: GameController) extends AnchorPane {
       gameController.createPlayer(0, playerNameOne.text.value)
       gameController.createPlayer(1, playerNameTwo.text.value)
       gameController.createTable(sizeSlider.value.value.toInt)
-      gameController.start
+      gameController.start()
     }
+    layoutX = 500
+    layoutY = 400
   }
+
+  children add submit
+  children add welcomeLabel
+  children add playerNameOne
+  children add playerNameTwo
+  children add sizeSlider
+
 
 }
