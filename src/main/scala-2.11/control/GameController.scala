@@ -10,6 +10,8 @@ class GameController {
   var app: GomokuApp.type = null
   var table: Table = null
   val players = new Array[Player](2)
+  var current:Player = null
+  var currentId = -1;
 
   def setGomokuApp(gomApp: GomokuApp.type) = {
     app = gomApp;
@@ -23,13 +25,19 @@ class GameController {
     table = new Table(size)
   }
 
-  def start() = {
-    val boardPane = new Board(this)
-    ???
+  def placeSymbolOnTable(x:Int, y:Int) = {
+    if(current.placeSymbolOnTable(table, x,y )){
+      current = players(currentId + 1 % players.length)
+      ??? // Show its .. turn
+    }
   }
 
-  def getPlayers(): Array[Player] = players
+  def start() = {
+    currentId = 0;
+    current = players(currentId)
+    val boardPane = new Board(this)
 
-  def getTable(): Table = table
+    ???
+  }
 
 }

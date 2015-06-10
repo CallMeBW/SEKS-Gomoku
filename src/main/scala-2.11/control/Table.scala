@@ -1,32 +1,32 @@
 package control
 
-class Table(val n: Int) {
-  require(n >= 5, "Table needs atleast a size of 5")
+import scalafx.beans.property.StringProperty
 
-  val size = n
-  val EMPTY = '-'
-  val DIR = List(0, 1, 2, 3, 4, 5, 6, 7)
+class Table(val size: Int) {
+  require(size >= 5, "Table needs atleast a size of 5")
 
-  val table = Array.fill[Char](size, size) {
+  val EMPTY = new StringProperty("-")
+
+  val table = Array.fill[StringProperty](size, size) {
     EMPTY
   }
 
-  def setEntry(x: Int, y: Int, s: Char): Boolean = {
+  def setEntry(x: Int, y: Int, s: String): Boolean = {
     if (x < 0 || y < 0 || x >= size || y >= size) {
       return false
     }
     if (table(x)(y) != EMPTY) {
       return false
     }
-    table(x)(y) = s
+    table(x)(y).set(s)
     true
   }
 
-  def getEntry(x: Int, y: Int): Char = {
+  def getEntry(x: Int, y: Int): StringProperty = {
     table(x)(y)
   }
 
-  def winTest(x: Int, y: Int, s: Char): Boolean =
+  def winTest(x: Int, y: Int, s: String): Boolean =
     check(x, y, s, 0) + check(x, y, s, 4) - 1 == 5 ||
       check(x, y, s, 1) + check(x, y, s, 5) - 1 == 5 ||
       check(x, y, s, 2) + check(x, y, s, 6) - 1 == 5 ||
@@ -34,17 +34,12 @@ class Table(val n: Int) {
 
   /**
    * Kaz-Mayer-Algorithm
-   * @param x
-   * @param y
-   * @param s
-   * @param dir
-   * @return
    */
-  private def check(x: Int, y: Int, s: Char, dir: Int): Int = {
+  private def check(x: Int, y: Int, s: String, dir: Int): Int = {
     if (x < 0 || y < 0 || x >= size || y >= size) {
       return 0
     }
-    if (table(x)(y) != s) {
+    if (table(x)(y).value.equals(s)) {
       return 0
     }
     dir match {
