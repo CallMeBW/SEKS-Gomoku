@@ -2,7 +2,7 @@ package model
 
 import control.Table
 
-class Player(val name: String, val icon: Char) {
+class Player(val name: String, val icon: String) {
   require(name != null, "Players need a name")
 
   val WON = s"$name won the game."

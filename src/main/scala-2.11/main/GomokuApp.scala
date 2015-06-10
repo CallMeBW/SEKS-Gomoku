@@ -1,18 +1,19 @@
 package main
 
 import control.GameController
-import view.{SetupPane, StatusPane, Board}
+import view.{SetupPane, StatusPane}
 
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
-import scalafx.scene.layout.{StackPane, AnchorPane}
+import scalafx.scene.layout.{AnchorPane, StackPane}
 
 object GomokuApp extends JFXApp {
   val WELCOME = "Welcome to Gomoku!"
   val WELCOME_MESSAGE = "Gomoku is a game for two suckers that are bored. FUCK YOU!"
 
   val controller = new GameController
+
 
   stage = new PrimaryStage{
     title.value = "Gomoku"
@@ -21,10 +22,8 @@ object GomokuApp extends JFXApp {
     val stackPane = new StackPane()
     scene = new Scene {
       content = new AnchorPane{
-        val boardPane = new Board(controller)
         val setupPane = new SetupPane(controller)
         val statusPane = new StatusPane()
-        stackPane.children.add(boardPane)
         stackPane.children.add(setupPane)
       }
     }
@@ -32,6 +31,7 @@ object GomokuApp extends JFXApp {
   start()
 
   def start() = {
+    controller.setGomokuApp(this)
 //    controller.createPlayers
     stage.show()
   }
