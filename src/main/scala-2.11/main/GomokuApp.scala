@@ -11,7 +11,7 @@ import scalafx.scene.paint.Color
 
 object GomokuApp extends JFXApp {
   val WELCOME = "Welcome to Gomoku!"
-  val WELCOME_MESSAGE = "Gomoku is a game for two players. The players alternately put their symbol on th board. The player who has 5 of his symbols in a row wins this gomoku."
+  val WELCOME_MESSAGE = "Gomoku is a game for two players. The players alternately put their symbol on the board.\nThe player who has 5 of his symbols in a row wins Gomoku."
   val HINT_P1 = "Player 1"
   val HINT_P2 = "Player 2"
 
