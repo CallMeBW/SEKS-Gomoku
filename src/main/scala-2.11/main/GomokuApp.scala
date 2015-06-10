@@ -7,6 +7,9 @@ import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
 
 object GomokuApp extends JFXApp {
+  val WELCOME = "Welcome to Gomoku!"
+  val WELCOME_MESSAGE = ""
+
   stage = new PrimaryStage{
     title.value = "Gomoku"
     width = 500
