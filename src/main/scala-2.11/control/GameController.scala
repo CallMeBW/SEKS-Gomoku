@@ -8,13 +8,12 @@ import view.Board
 class GameController {
 
   var app: GomokuApp.type = null
+  var table: Table = null
+  val players = new Array[Player](2)
 
   def setGomokuApp(gomApp: GomokuApp.type) = {
     app = gomApp;
   }
-
-  var table: Table = null
-  val players = new Array[Player](2)
 
   def createPlayer(id: Int, name: String) = {
     players(id) = new Player(name, symbols(id))
