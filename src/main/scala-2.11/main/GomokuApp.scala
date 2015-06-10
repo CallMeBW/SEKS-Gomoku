@@ -12,14 +12,19 @@ import scalafx.scene.paint.Color
 object GomokuApp extends JFXApp {
   val WELCOME = "Welcome to Gomoku!"
   val WELCOME_MESSAGE = "Gomoku is a game for two players. The players alternately put their symbol on th board. The player who has 5 of his symbols in a row wins this gomoku."
+  val HINT_P1 = "Player 1"
+  val HINT_P2 = "Player 2"
 
   val controller = new GameController
   val setupPane = new SetupPane(controller){
-
     prefWidth = 700
-    prefHeight = 460
+    prefHeight = 440
   }
-  val statusPane = new StatusPane()
+  val statusPane = new StatusPane {
+    prefWidth = 700
+    prefHeight = 60
+    layoutY = 440
+  }
 
   stage = new PrimaryStage{
     title.value = "Gomoku"
@@ -29,6 +34,7 @@ object GomokuApp extends JFXApp {
     scene = new Scene {
       content = new AnchorPane{
         children add setupPane
+        children add statusPane
       }
     }
   }
