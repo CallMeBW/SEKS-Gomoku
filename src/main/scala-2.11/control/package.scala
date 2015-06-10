@@ -1,3 +1,5 @@
 package object control {
-val symbols = List("\u25CF","\u25CB")
+
+
+val symbols = List('X','O')
 }
