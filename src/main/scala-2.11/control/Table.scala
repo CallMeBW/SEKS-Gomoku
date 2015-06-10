@@ -2,10 +2,9 @@ package control
 
 import scalafx.beans.property.StringProperty
 
-class Table(val n: Int) {
-  require(n >= 5, "Table needs atleast a size of 5")
+class Table(val size: Int) {
+  require(size >= 5, "Table needs atleast a size of 5")
 
-  val size = n
   val EMPTY = new StringProperty("-")
   val DIR = List(0, 1, 2, 3, 4, 5, 6, 7)
 
@@ -24,8 +23,8 @@ class Table(val n: Int) {
     true
   }
 
-  def getEntry(x: Int, y: Int): String = {
-    table(x)(y).value
+  def getEntry(x: Int, y: Int): StringProperty = {
+    table(x)(y)
   }
 
   def winTest(x: Int, y: Int, s: String): Boolean =
@@ -41,7 +40,7 @@ class Table(val n: Int) {
     if (x < 0 || y < 0 || x >= size || y >= size) {
       return 0
     }
-    if (table(x)(y).value != s) {
+    if (table(x)(y).value.equals(s)) {
       return 0
     }
     dir match {
