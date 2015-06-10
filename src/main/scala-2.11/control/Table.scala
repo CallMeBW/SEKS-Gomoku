@@ -2,10 +2,9 @@ package control
 
 import scalafx.beans.property.StringProperty
 
-class Table(val n: Int) {
-  require(n >= 5, "Table needs atleast a size of 5")
+class Table(val size: Int) {
+  require(size >= 5, "Table needs atleast a size of 5")
 
-  val size = n
   val EMPTY = new StringProperty("-")
   val DIR = List(0, 1, 2, 3, 4, 5, 6, 7)
 
