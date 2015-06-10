@@ -4,6 +4,7 @@ import control.GameController
 
 import scalafx.scene.control.Button
 import scalafx.scene.layout.{Pane, GridPane, AnchorPane}
+import scalafx.Includes._
 
 class Board(gameController: GameController) extends AnchorPane {
 
@@ -11,10 +12,17 @@ class Board(gameController: GameController) extends AnchorPane {
   gridPane.setHgap(5);
   gridPane.setVgap(5);
 
-  var a = 0;
   for (a <- gameController.table.size) {
-    val button = new Button();
-    gridPane.children.add(button);
+    for(b <- gameController.table.size) {
+      val button = new Button{
+        text.bind(gameController.table.getEntry(a,b))
+        onAction = handle{
+          gameController.placeSymbolOnTable(a, b)
+
+        }
+      }
+      gridPane.children.add(button);
+    }
   }
 
 

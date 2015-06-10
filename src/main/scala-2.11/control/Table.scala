@@ -6,7 +6,6 @@ class Table(val size: Int) {
   require(size >= 5, "Table needs atleast a size of 5")
 
   val EMPTY = new StringProperty("-")
-  val DIR = List(0, 1, 2, 3, 4, 5, 6, 7)
 
   val table = Array.fill[StringProperty](size, size) {
     EMPTY

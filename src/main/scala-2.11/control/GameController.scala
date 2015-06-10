@@ -6,10 +6,13 @@ import view.Board
 
 
 class GameController {
+  def placeSymbolOnTable(x:Int, y:Int) = ???
+
 
   var app: GomokuApp.type = null
   var table: Table = null
   val players = new Array[Player](2)
+  var current:Player = null
 
   def setGomokuApp(gomApp: GomokuApp.type) = {
     app = gomApp;
@@ -24,7 +27,9 @@ class GameController {
   }
 
   def start() = {
+    current = players(0)
     val boardPane = new Board(this)
+
     ???
   }
 
