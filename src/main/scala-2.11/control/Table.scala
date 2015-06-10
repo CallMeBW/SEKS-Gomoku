@@ -31,6 +31,14 @@ class Table(val n: Int) {
 
   }
 
+  /**
+   * Kaz-Mayer-Algorithm
+   * @param x
+   * @param y
+   * @param s
+   * @param dir
+   * @return
+   */
   private def check(x:Int, y:Int, s:Char, dir:Int):Int = {
     if (x < 0 || y < 0 || x >= size || y >= size) {
       return 0
