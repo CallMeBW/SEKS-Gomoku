@@ -28,8 +28,4 @@ class GameController {
     ???
   }
 
-  def getPlayers(): Array[Player] = players
-
-  def getTable(): Table = table
-
 }
