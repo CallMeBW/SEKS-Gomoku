@@ -2,11 +2,9 @@ package model
 
 import control.Table
 
-class Player(val n: String, val i: Char) {
-    require(n != null, "Players need a name")
-    require(i != null, "Players need a icon")
-    val name = n
-    val icon = i
+class Player(val name: String, val icon: Char) {
+    require(name != null, "Players need a name")
+    require(icon != null, "Players need a icon")
 
     def placeSymbolOnTable(table:Table) = ???
 }
