@@ -17,7 +17,7 @@ class SetupPane(gameController: GameController) extends AnchorPane {
     text = GomokuApp.WELCOME
     font = new Font(20)
     layoutX = 250
-    layoutY = 50
+    layoutY = 30
   }
 
   val descriptionLabel = new Label {
@@ -26,7 +26,7 @@ class SetupPane(gameController: GameController) extends AnchorPane {
     textAlignment = TextAlignment.CENTER
     prefWidth = 400
     layoutX = 150
-    layoutY = 100
+    layoutY = 80
   }
 
   val playerNameOne = new TextField {
@@ -54,7 +54,7 @@ class SetupPane(gameController: GameController) extends AnchorPane {
     sizeSlider.value.addListener{ (o: javafx.beans.value.ObservableValue[_ <: Number], oldVal: Number, newVal: Number) =>
         text = "grid size: " +  newVal.intValue()
     }
-    text = "change grid size"
+    text = "change grid size:"
     textAlignment = TextAlignment.CENTER
     alignment = Pos.CENTER
     prefWidth = 130
@@ -65,6 +65,12 @@ class SetupPane(gameController: GameController) extends AnchorPane {
   val submit = new Button {
     text = "start game"
     onAction = handle {
+      if(playerNameOne.text.length().intValue() == 0){
+        playerNameOne.text = "Player 1"
+      }
+      if(playerNameTwo.text.length().intValue() == 0){
+        playerNameTwo.text = "Player 2"
+      }
       gameController.createPlayer(0, playerNameOne.text.value)
       gameController.createPlayer(1, playerNameTwo.text.value)
       gameController.createTable(sizeSlider.value.value.toInt)
