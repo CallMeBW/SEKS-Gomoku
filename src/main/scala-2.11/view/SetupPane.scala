@@ -25,11 +25,11 @@ class SetupPane(gameController: GameController) extends AnchorPane {
   }
 
   val playerNameOne = new TextField{
-    layoutX = 100
+    layoutX = 150
     layoutY = 200
   }
   val playerNameTwo = new TextField{
-    layoutX = 300
+    layoutX = 350
     layoutY = 200
   }
   val sizeSlider = new Slider{

@@ -8,9 +8,9 @@ import scalafx.Includes._
 
 class Board(gameController: GameController) extends AnchorPane {
 
-  val gridPane = new GridPane();
-  gridPane.setHgap(5);
-  gridPane.setVgap(5);
+  val gridPane = new GridPane()
+  gridPane.setHgap(5)
+  gridPane.setVgap(5)
 
   for (a <- gameController.table.size) {
     for(b <- gameController.table.size) {
