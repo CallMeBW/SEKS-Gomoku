@@ -9,14 +9,14 @@ class Table(val size: Int) {
   require(size >= 5, "Table needs atleast a size of 5")
 
   val table = Array.fill[StringProperty](size, size) {
-    new StringProperty("")
+    new StringProperty("-")
   }
 
   def setEntry(x: Int, y: Int, s: String): Boolean = {
     if (x < 0 || y < 0 || x >= size || y >= size) {
       return false
     }
-    if (!table(x)(y).value.equals("")) {
+    if (!table(x)(y).value.equals("-")) {
       return false
     }
     table(x)(y).set(s)
@@ -50,10 +50,10 @@ class Table(val size: Int) {
     } else if (check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1 == 4) {
 
       (-1, -1)
-    } else if (check(lastX, lastY, playerIcon, 2) + check(lastX, lastY, playerIcon, 6) - 1 == 5) {
+    } else if (check(lastX, lastY, playerIcon, 2) + check(lastX, lastY, playerIcon, 6) - 1 == 4) {
 
       (-1, -1)
-    } else if (check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1 == 5) {
+    } else if (check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1 == 4) {
 
       (-1, -1)
     } else {
@@ -62,20 +62,20 @@ class Table(val size: Int) {
   }
 
   private def calculateNewHardEntry(lastX: Int, lastY: Int, playerIcon: String): (Int, Int) = {
-    if (check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1 == 4) {
+    if (check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1 == 3) {
 
       (-1, -1)
-    } else if (check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1 == 4) {
+    } else if (check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1 == 3) {
 
       (-1, -1)
-    } else if (check(lastX, lastY, playerIcon, 2) + check(lastX, lastY, playerIcon, 6) - 1 == 5) {
+    } else if (check(lastX, lastY, playerIcon, 2) + check(lastX, lastY, playerIcon, 6) - 1 == 3) {
 
       (-1, -1)
-    } else if (check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1 == 5) {
+    } else if (check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1 == 3) {
 
       (-1, -1)
     } else {
-      calculateNewMediumEntry(lastX, lastY, playerIcon)
+      calculateNewEasyEntry(lastX, lastY, playerIcon)
     }
   }
 
