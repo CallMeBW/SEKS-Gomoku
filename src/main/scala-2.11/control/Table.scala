@@ -1,5 +1,8 @@
 package control
 
+import model.Mode
+import model.Mode.Mode
+
 import scalafx.beans.property.StringProperty
 
 class Table(val size: Int) {
@@ -22,6 +25,21 @@ class Table(val size: Int) {
 
   def getEntry(x: Int, y: Int): StringProperty = {
     table(x)(y)
+  }
+
+  def calculateNewEntry(lastX:Int, lastY:Int, playerIcon:String, compIcon: String, mode:Mode):(Int, Int) = mode match {
+    case Mode.EASY => {
+
+      (-1, -1)
+    }
+    case Mode.MEDIUM => {
+
+      (-1, -1)
+    }
+    case Mode.HARD => {
+
+      (-1, -1)
+    }
   }
 
   def winTest(x: Int, y: Int, s: String): Boolean =
