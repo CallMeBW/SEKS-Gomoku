@@ -6,14 +6,14 @@ class Table(val size: Int) {
   require(size >= 5, "Table needs atleast a size of 5")
 
   val table = Array.fill[StringProperty](size, size) {
-    new StringProperty("-")
+    new StringProperty("")
   }
 
   def setEntry(x: Int, y: Int, s: String): Boolean = {
     if (x < 0 || y < 0 || x >= size || y >= size) {
       return false
     }
-    if (!table(x)(y).value.equals("-")) {
+    if (!table(x)(y).value.equals("")) {
       return false
     }
     table(x)(y).set(s)

@@ -1,3 +1,3 @@
 package object control {
-  val symbols = List("X","O")
+  val symbols = List("\u2715","\u25CB")
 }
