@@ -1,6 +1,7 @@
 package model
 
 import control.GameController
+import model.Mode.Mode
 
 class Computer(name: String, icon: String, mode:Mode) extends Player(name, icon) {
 
