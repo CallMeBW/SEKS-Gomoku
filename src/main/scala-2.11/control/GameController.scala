@@ -28,16 +28,16 @@ class GameController {
   def placeSymbolOnTable(x:Int, y:Int) = {
     if(current.placeSymbolOnTable(table, x,y )){
       current = players(currentId + 1 % players.length)
-      ??? // Show its .. turn
+      app.statusPane.statusLabel.text.set(current.ROUND)
     }
   }
 
   def start() = {
     currentId = 0;
     current = players(currentId)
+    app.statusPane.statusLabel.text.set(current.ROUND)
     val boardPane = new Board(this)
-
-    ???
+    ??? // TODO Brian add to stage
   }
 
 }
