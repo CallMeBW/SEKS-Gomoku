@@ -5,17 +5,15 @@ import scalafx.beans.property.StringProperty
 class Table(val size: Int) {
   require(size >= 5, "Table needs atleast a size of 5")
 
-  val EMPTY = new StringProperty("-")
-
   val table = Array.fill[StringProperty](size, size) {
-    EMPTY
+    new StringProperty("-")
   }
 
   def setEntry(x: Int, y: Int, s: String): Boolean = {
     if (x < 0 || y < 0 || x >= size || y >= size) {
       return false
     }
-    if (table(x)(y) != EMPTY) {
+    if (!table(x)(y).value.equals("-")) {
       return false
     }
     table(x)(y).set(s)
@@ -26,14 +24,11 @@ class Table(val size: Int) {
     table(x)(y)
   }
 
-  def winTest(x: Int, y: Int, s: String): Unit =
-      for (a <- 0 to 7) {
-        println(check(x, y, s, a))
-      }
-  //check(x, y, s, 0) + check(x, y, s, 4) - 1 == 5 ||
-    //check(x, y, s, 1) + check(x, y, s, 5) - 1 == 5 ||
-    //check(x, y, s, 2) + check(x, y, s, 6) - 1 == 5 ||
-    //check(x, y, s, 3) + check(x, y, s, 7) - 1 == 5
+  def winTest(x: Int, y: Int, s: String): Boolean =
+      check(x, y, s, 0) + check(x, y, s, 4) - 1 == 5 ||
+      check(x, y, s, 1) + check(x, y, s, 5) - 1 == 5 ||
+      check(x, y, s, 2) + check(x, y, s, 6) - 1 == 5 ||
+      check(x, y, s, 3) + check(x, y, s, 7) - 1 == 5
 
 
   /**

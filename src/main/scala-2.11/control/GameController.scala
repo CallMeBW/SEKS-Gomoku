@@ -26,8 +26,9 @@ class GameController {
 
   def placeSymbolOnTable(x:Int, y:Int):Boolean = {
     if(current.placeSymbolOnTable(table, x,y )){
-      currentId = currentId + 1
-      current = players(currentId % players.length)
+      println(table.winTest(x, y, current.icon))
+      currentId = (currentId + 1) % players.length
+      current = players(currentId)
       app.statusPane.statusLabel.text.set(current.ROUND)
       app.statusPane.setStatus(current.ROUND)
       true

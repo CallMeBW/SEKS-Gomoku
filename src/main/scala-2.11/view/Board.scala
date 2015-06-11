@@ -16,13 +16,10 @@ class Board(gameController: GameController) extends AnchorPane {
     for (a <- 0 to gameController.table.size - 1) {
       for (b <- 0 to gameController.table.size - 1) {
         val button = new Button {
-          text = gameController.table.getEntry(a, b).value
+          text.bind(gameController.table.getEntry(a, b))
 
           onAction = handle {
-            if (gameController.placeSymbolOnTable(a, b)) {
-              text = gameController.table.getEntry(a, b).value
-              println(gameController.table.winTest(a, b, gameController.current.icon))
-            }
+            gameController.placeSymbolOnTable(a, b)
           }
         }
         gridPane.add(button, a, b)
