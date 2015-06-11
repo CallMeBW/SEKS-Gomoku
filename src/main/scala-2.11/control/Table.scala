@@ -45,17 +45,53 @@ class Table(val size: Int) {
 
   private def calculateNewMediumEntry(lastX: Int, lastY: Int, playerIcon: String): (Int, Int) = {
     if (check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1 == 4) {
-
-      (-1, -1)
+      val tuple0 = nextDifferentEntry(lastX, lastY, playerIcon, 0)
+      if (tuple0._1 == -1 || tuple0._2 == -1) {
+        val tuple4 = nextDifferentEntry(lastX, lastY, playerIcon, 4)
+        if (tuple4._1 == -1 || tuple4._2 == -1) {
+          calculateNewEasyEntry(lastX, lastY, playerIcon)
+        } else {
+          tuple4
+        }
+      } else {
+        tuple0
+      }
     } else if (check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1 == 4) {
-
-      (-1, -1)
+      val tuple1 = nextDifferentEntry(lastX, lastY, playerIcon, 1)
+      if (tuple1._1 == -1 || tuple1._2 == -1) {
+        val tuple5 = nextDifferentEntry(lastX, lastY, playerIcon, 5)
+        if (tuple5._1 == -1 || tuple5._2 == -1) {
+          calculateNewEasyEntry(lastX, lastY, playerIcon)
+        } else {
+          tuple5
+        }
+      } else {
+        tuple1
+      }
     } else if (check(lastX, lastY, playerIcon, 2) + check(lastX, lastY, playerIcon, 6) - 1 == 4) {
-
-      (-1, -1)
+      val tuple2 = nextDifferentEntry(lastX, lastY, playerIcon, 2)
+      if (tuple2._1 == -1 || tuple2._2 == -1) {
+        val tuple6 = nextDifferentEntry(lastX, lastY, playerIcon, 6)
+        if (tuple6._1 == -1 || tuple6._2 == -1) {
+          calculateNewEasyEntry(lastX, lastY, playerIcon)
+        } else {
+          tuple6
+        }
+      } else {
+        tuple2
+      }
     } else if (check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1 == 4) {
-
-      (-1, -1)
+      val tuple3 = nextDifferentEntry(lastX, lastY, playerIcon, 3)
+      if (tuple3._1 == -1 || tuple3._2 == -1) {
+        val tuple7 = nextDifferentEntry(lastX, lastY, playerIcon, 7)
+        if (tuple7._1 == -1 || tuple7._2 == -1) {
+          calculateNewEasyEntry(lastX, lastY, playerIcon)
+        } else {
+          tuple7
+        }
+      } else {
+        tuple3
+      }
     } else {
       calculateNewEasyEntry(lastX, lastY, playerIcon)
     }
@@ -63,19 +99,75 @@ class Table(val size: Int) {
 
   private def calculateNewHardEntry(lastX: Int, lastY: Int, playerIcon: String): (Int, Int) = {
     if (check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1 == 3) {
-
-      (-1, -1)
+      val tuple0 = nextDifferentEntry(lastX, lastY, playerIcon, 0)
+      if (tuple0._1 == -1 || tuple0._2 == -1) {
+        val tuple4 = nextDifferentEntry(lastX, lastY, playerIcon, 4)
+        if (tuple4._1 == -1 || tuple4._2 == -1) {
+          calculateNewEasyEntry(lastX, lastY, playerIcon)
+        } else {
+          tuple4
+        }
+      } else {
+        tuple0
+      }
     } else if (check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1 == 3) {
-
-      (-1, -1)
+      val tuple1 = nextDifferentEntry(lastX, lastY, playerIcon, 1)
+      if (tuple1._1 == -1 || tuple1._2 == -1) {
+        val tuple5 = nextDifferentEntry(lastX, lastY, playerIcon, 5)
+        if (tuple5._1 == -1 || tuple5._2 == -1) {
+          calculateNewEasyEntry(lastX, lastY, playerIcon)
+        } else {
+          tuple5
+        }
+      } else {
+        tuple1
+      }
     } else if (check(lastX, lastY, playerIcon, 2) + check(lastX, lastY, playerIcon, 6) - 1 == 3) {
-
-      (-1, -1)
+      val tuple2 = nextDifferentEntry(lastX, lastY, playerIcon, 2)
+      if (tuple2._1 == -1 || tuple2._2 == -1) {
+        val tuple6 = nextDifferentEntry(lastX, lastY, playerIcon, 6)
+        if (tuple6._1 == -1 || tuple6._2 == -1) {
+          calculateNewEasyEntry(lastX, lastY, playerIcon)
+        } else {
+          tuple6
+        }
+      } else {
+        tuple2
+      }
     } else if (check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1 == 3) {
-
-      (-1, -1)
+      val tuple3 = nextDifferentEntry(lastX, lastY, playerIcon, 3)
+      if (tuple3._1 == -1 || tuple3._2 == -1) {
+        val tuple7 = nextDifferentEntry(lastX, lastY, playerIcon, 7)
+        if (tuple7._1 == -1 || tuple7._2 == -1) {
+          calculateNewEasyEntry(lastX, lastY, playerIcon)
+        } else {
+          tuple7
+        }
+      } else {
+        tuple3
+      }
     } else {
       calculateNewEasyEntry(lastX, lastY, playerIcon)
+    }
+  }
+
+  private def nextDifferentEntry(x: Int, y: Int, s: String, dir: Int): (Int, Int) = {
+    if (x < 0 || y < 0 || x >= size || y >= size) {
+      return (-1, -1)
+    }
+    table(x)(y).value match {
+      case "-" => (x, y)
+      case s => dir match {
+        case 0 => nextDifferentEntry(x, y + 1, s, dir)
+        case 1 => nextDifferentEntry(x + 1, y + 1, s, dir)
+        case 2 => nextDifferentEntry(x + 1, y, s, dir)
+        case 3 => nextDifferentEntry(x + 1, y - 1, s, dir)
+        case 4 => nextDifferentEntry(x, y - 1, s, dir)
+        case 5 => nextDifferentEntry(x - 1, y - 1, s, dir)
+        case 6 => nextDifferentEntry(x - 1, y, s, dir)
+        case 7 => nextDifferentEntry(x - 1, y + 1, s, dir)
+      }
+      case d: String => (-1, -1)
     }
   }
 
