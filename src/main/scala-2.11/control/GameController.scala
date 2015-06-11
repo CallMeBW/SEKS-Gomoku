@@ -33,6 +33,7 @@ class GameController {
     if(current.placeSymbolOnTable(table, x,y )){
       if(table.winTest(x, y, current.icon)) {
         app.statusPane.setStatus(current.WON)
+        app.setMainPane(app.setupPane)
         true
       } else {
         currentId = (currentId + 1) % players.length

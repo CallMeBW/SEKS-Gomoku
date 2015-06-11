@@ -9,15 +9,18 @@ import scalafx.scene.layout.{AnchorPane, GridPane}
 class Board(gameController: GameController) extends AnchorPane {
 
   val gridPane = new GridPane()
-  gridPane.setHgap(1)
-  gridPane.setVgap(1)
+  gridPane.setHgap(0)
+  gridPane.setVgap(0)
 
   def init() = {
     for (a <- 0 to gameController.table.size - 1) {
       for (b <- 0 to gameController.table.size - 1) {
         val button = new Button {
           text.bind(gameController.table.getEntry(a, b))
-
+          prefHeight = 30
+          prefWidth = 30
+          id = "ingamebutton"
+          stylesheets add "style.css"
           onAction = handle {
             if(gameController.placeSymbolOnTable(a, b)){
               gridPane.children.foreach(f => f.disable.set(true))
