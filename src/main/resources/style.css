@@ -1,0 +1,15 @@
+.button {
+	-fx-background-color: #DFB951;
+    -fx-text-fill: #006464;
+}
+
+.button:hover {
+    -fx-background-color: #f5cd53;
+    -fx-text-fill: #008585;
+}
+#statusPane {
+    -fx-background-color: #DFB951;
+}
+#statusLabel {
+    -fx-text-fill: #006464;
+}

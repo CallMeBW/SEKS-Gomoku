@@ -11,10 +11,10 @@ class GameController {
   var table: Table = null
   val players = new Array[Player](2)
   var current:Player = null
-  var currentId = -1;
+  var currentId = -1
 
   def setGomokuApp(gomApp: GomokuApp.type) = {
-    app = gomApp;
+    app = gomApp
   }
 
   def createPlayer(id: Int, name: String) = {
@@ -29,15 +29,15 @@ class GameController {
     if(current.placeSymbolOnTable(table, x,y )){
       current = players(currentId + 1 % players.length)
       app.statusPane.statusLabel.text.set(current.ROUND)
+      app.statusPane.setStatus(current.ROUND)
     }
   }
 
   def start() = {
-    currentId = 0;
+    currentId = 0
     current = players(currentId)
-    app.statusPane.statusLabel.text.set(current.ROUND)
-    val boardPane = new Board(this)
-    ??? // TODO Brian add to stage
+    app.setMainPane(app.boardPane)
+    app.boardPane.init()
   }
 
 }
