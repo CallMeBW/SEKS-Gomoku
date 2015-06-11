@@ -3,6 +3,7 @@ package control
 import model.Mode
 import model.Mode.Mode
 
+import scala.util.Random
 import scalafx.beans.property.StringProperty
 
 class Table(val size: Int) {
@@ -40,7 +41,30 @@ class Table(val size: Int) {
   }
 
   private def calculateNewEasyEntry(lastX: Int, lastY: Int, playerIcon: String): (Int, Int) = {
-    (-1, -1)
+    def getRandomField(): (Int, Int) = {
+      var randomNumber1 = Random.nextInt(size-1)
+      var randomNumber2 = Random.nextInt(size-1)
+
+      if (table(randomNumber1)(randomNumber2).value.equals("-")) {
+        (randomNumber1, randomNumber2)
+      } else {
+        for (a <- randomNumber1 to size - 1) {
+          randomNumber1 = randomNumber1 + 1
+          for (b <- randomNumber2 to size - 1) {
+            if (table(randomNumber1)(randomNumber2).value.equals("-")) {
+              (randomNumber1, randomNumber2)
+            } else {
+              randomNumber2 = randomNumber2 + 1
+              if (table(randomNumber1)(randomNumber2).value.equals("-")) {
+                (randomNumber1, randomNumber2)
+              }
+            }
+          }
+        }
+        (-1, -1)
+      }
+    }
+    getRandomField()
   }
 
   private def calculateNewMediumEntry(lastX: Int, lastY: Int, playerIcon: String): (Int, Int) = {
