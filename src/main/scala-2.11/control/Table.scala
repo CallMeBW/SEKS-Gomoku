@@ -1,5 +1,7 @@
 package control
 
+import model.Mode
+
 import scalafx.beans.property.StringProperty
 
 class Table(val size: Int) {
@@ -23,6 +25,8 @@ class Table(val size: Int) {
   def getEntry(x: Int, y: Int): StringProperty = {
     table(x)(y)
   }
+
+  def calculateNewEntry(lastX:Int, lastY:Int, playerIcon:String, compIcon: String, mode:Mode):(Int, Int) = ???
 
   def winTest(x: Int, y: Int, s: String): Boolean =
       check(x, y, s, 0) + check(x, y, s, 4) - 1 == 5 ||
