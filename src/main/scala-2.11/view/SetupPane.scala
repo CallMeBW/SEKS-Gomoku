@@ -1,63 +1,86 @@
 package view
 
 
+import javafx.geometry.Pos
+
 import control.GameController
 import main.GomokuApp
 
 import scalafx.Includes._
 import scalafx.scene.control.{Button, Label, Slider, TextField}
 import scalafx.scene.layout.AnchorPane
+import scalafx.scene.text.{TextAlignment, Font}
 
 class SetupPane(gameController: GameController) extends AnchorPane {
 
-  val welcomeLabel = new Label{
+  val welcomeLabel = new Label {
     text = GomokuApp.WELCOME
+    font = new Font(20)
     layoutX = 250
-    layoutY = 50
+    layoutY = 30
   }
 
-  val descriptionLabel = new Label{
+  val descriptionLabel = new Label {
     text = GomokuApp.WELCOME_MESSAGE
     wrapText = true
-    prefWidth <== this.width
-    layoutX = 250
-    layoutY = 100
+    textAlignment = TextAlignment.CENTER
+    prefWidth = 400
+    layoutX = 150
+    layoutY = 80
   }
 
-  val playerNameOne = new TextField{
+  val playerNameOne = new TextField {
+    promptText = GomokuApp.HINT_P1
     layoutX = 150
     layoutY = 200
   }
-  val playerNameTwo = new TextField{
-    layoutX = 350
+  val playerNameTwo = new TextField {
+    promptText = GomokuApp.HINT_P2
+    layoutX = 400
     layoutY = 200
   }
-  val sizeSlider = new Slider{
+  val sizeSlider = new Slider {
     majorTickUnit = 1
     minorTickCount = 1
     min = 5
     max = 20
-    layoutX = 300
+    snapToTicks = true
+
+    layoutX = 285
     layoutY = 300
   }
 
-  val submit = new Button{
-    text = "Submit"
-    onAction = handle{
+  val gridSizeLabel = new Label {
+    sizeSlider.value.addListener{ (o: javafx.beans.value.ObservableValue[_ <: Number], oldVal: Number, newVal: Number) =>
+        text = "grid size: " +  newVal.intValue()
+    }
+    text = "change grid size:"
+    textAlignment = TextAlignment.CENTER
+    alignment = Pos.CENTER
+    prefWidth = 130
+    layoutX = 285
+    layoutY = 270
+  }
+
+  val submit = new Button {
+    text = "start game"
+    onAction = handle {
+      if(playerNameOne.text.length().intValue() == 0){
+        playerNameOne.text = "Player 1"
+      }
+      if(playerNameTwo.text.length().intValue() == 0){
+        playerNameTwo.text = "Player 2"
+      }
       gameController.createPlayer(0, playerNameOne.text.value)
       gameController.createPlayer(1, playerNameTwo.text.value)
       gameController.createTable(sizeSlider.value.value.toInt)
       gameController.start()
     }
-    layoutX = 500
+    layoutX = 312
     layoutY = 400
   }
 
-  children add submit
-  children add welcomeLabel
-  children add playerNameOne
-  children add playerNameTwo
-  children add sizeSlider
+  children ++= Seq(submit, welcomeLabel, playerNameOne, playerNameTwo, sizeSlider, descriptionLabel, gridSizeLabel)
 
 
 }
