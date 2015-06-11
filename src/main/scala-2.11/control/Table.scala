@@ -27,7 +27,7 @@ class Table(val size: Int) {
   }
 
   def winTest(x: Int, y: Int, s: String): Boolean =
-    check(x, y, s, 0) + check(x, y, s, 4) - 1 == 5 ||
+      check(x, y, s, 0) + check(x, y, s, 4) - 1 == 5 ||
       check(x, y, s, 1) + check(x, y, s, 5) - 1 == 5 ||
       check(x, y, s, 2) + check(x, y, s, 6) - 1 == 5 ||
       check(x, y, s, 3) + check(x, y, s, 7) - 1 == 5
@@ -39,7 +39,7 @@ class Table(val size: Int) {
     if (x < 0 || y < 0 || x >= size || y >= size) {
       return 0
     }
-    if (table(x)(y).value.equals(s)) {
+    if (table(x)(y).equals(s)) {
       return 0
     }
     dir match {

@@ -8,5 +8,7 @@ class Player(val name: String, val icon: String) {
   val WON = s"$name won the game."
   val ROUND = s"It's $name's turn."
 
-  def placeSymbolOnTable(table: Table, x: Int, y: Int): Boolean = table.setEntry(x, y, icon)
+  def placeSymbolOnTable(table: Table, x: Int, y: Int): Boolean = {
+    table.setEntry(x, y, icon)
+  }
 }

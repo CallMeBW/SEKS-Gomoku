@@ -26,8 +26,11 @@ class GameController {
   }
 
   def placeSymbolOnTable(x:Int, y:Int) = {
+    println(current)
     if(current.placeSymbolOnTable(table, x,y )){
-      current = players(currentId + 1 % players.length)
+      currentId = currentId + 1
+      current = players(currentId % players.length)
+      println(currentId)
       app.statusPane.statusLabel.text.set(current.ROUND)
       app.statusPane.setStatus(current.ROUND)
     }

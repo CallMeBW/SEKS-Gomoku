@@ -3,31 +3,31 @@ package view
 import control.GameController
 
 import scalafx.Includes._
-import scalafx.scene.control.Button
-import scalafx.scene.layout.{AnchorPane, GridPane}
+import scalafx.beans.property.StringProperty
+import scalafx.scene.control.{Label, Button}
+import scalafx.scene.layout.{Pane, AnchorPane, GridPane}
 
 class Board(gameController: GameController) extends AnchorPane {
 
   val gridPane = new GridPane()
-  gridPane.setHgap(5)
-  gridPane.setVgap(5)
+  gridPane.setHgap(1)
+  gridPane.setVgap(1)
 
   def init() : Unit = {
     for (a <- 0 to gameController.table.size - 1) {
       for(b <- 0 to gameController.table.size - 1) {
         val button = new Button{
-          text.bind(gameController.table.getEntry(a,b))
+          text = gameController.table.getEntry(a, b).value
+
           onAction = handle{
+            println(gameController.table.getEntry(a, b).value)
             gameController.placeSymbolOnTable(a, b)
+            text = gameController.table.getEntry(a, b).value
           }
         }
-        gridPane.children.add(button)
+        gridPane.add(button, a, b)
       }
     }
   }
-
   children add gridPane
-
-
-
 }
