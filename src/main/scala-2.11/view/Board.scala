@@ -20,7 +20,6 @@ class Board(gameController: GameController) extends AnchorPane {
           text = gameController.table.getEntry(a, b).value
 
           onAction = handle{
-            println(gameController.table.getEntry(a, b).value)
             gameController.placeSymbolOnTable(a, b)
             text = gameController.table.getEntry(a, b).value
           }
