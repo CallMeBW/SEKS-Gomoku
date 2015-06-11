@@ -22,6 +22,7 @@ class Board(gameController: GameController) extends AnchorPane {
           onAction = handle{
             gameController.placeSymbolOnTable(a, b)
             text = gameController.table.getEntry(a, b).value
+            println(gameController.table.winTest(a, b, gameController.current.icon))
           }
         }
         gridPane.add(button, a, b)
