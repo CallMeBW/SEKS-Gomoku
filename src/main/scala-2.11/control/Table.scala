@@ -27,23 +27,60 @@ class Table(val size: Int) {
     table(x)(y)
   }
 
-  def calculateNewEntry(lastX:Int, lastY:Int, playerIcon:String, compIcon: String, mode:Mode):(Int, Int) = mode match {
+  def calculateNewEntry(lastX: Int, lastY: Int, playerIcon: String, mode: Mode): (Int, Int) = mode match {
     case Mode.EASY => {
-
-      (-1, -1)
+      calculateNewEasyEntry(lastX, lastY, playerIcon)
     }
     case Mode.MEDIUM => {
-
-      (-1, -1)
+      calculateNewMediumEntry(lastX, lastY, playerIcon)
     }
     case Mode.HARD => {
+      calculateNewHardEntry(lastX, lastY, playerIcon)
+    }
+  }
+
+  private def calculateNewEasyEntry(lastX: Int, lastY: Int, playerIcon: String): (Int, Int) = {
+    (-1, -1)
+  }
+
+  private def calculateNewMediumEntry(lastX: Int, lastY: Int, playerIcon: String): (Int, Int) = {
+    if (check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1 == 4) {
 
       (-1, -1)
+    } else if (check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1 == 4) {
+
+      (-1, -1)
+    } else if (check(lastX, lastY, playerIcon, 2) + check(lastX, lastY, playerIcon, 6) - 1 == 5) {
+
+      (-1, -1)
+    } else if (check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1 == 5) {
+
+      (-1, -1)
+    } else {
+      calculateNewEasyEntry(lastX, lastY, playerIcon)
+    }
+  }
+
+  private def calculateNewHardEntry(lastX: Int, lastY: Int, playerIcon: String): (Int, Int) = {
+    if (check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1 == 4) {
+
+      (-1, -1)
+    } else if (check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1 == 4) {
+
+      (-1, -1)
+    } else if (check(lastX, lastY, playerIcon, 2) + check(lastX, lastY, playerIcon, 6) - 1 == 5) {
+
+      (-1, -1)
+    } else if (check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1 == 5) {
+
+      (-1, -1)
+    } else {
+      calculateNewMediumEntry(lastX, lastY, playerIcon)
     }
   }
 
   def winTest(x: Int, y: Int, s: String): Boolean =
-      check(x, y, s, 0) + check(x, y, s, 4) - 1 == 5 ||
+    check(x, y, s, 0) + check(x, y, s, 4) - 1 == 5 ||
       check(x, y, s, 1) + check(x, y, s, 5) - 1 == 5 ||
       check(x, y, s, 2) + check(x, y, s, 6) - 1 == 5 ||
       check(x, y, s, 3) + check(x, y, s, 7) - 1 == 5

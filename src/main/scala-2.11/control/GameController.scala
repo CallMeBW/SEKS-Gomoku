@@ -1,6 +1,7 @@
 package control
 
 import main.GomokuApp
+import model.Mode.Mode
 import model.{Computer, Player}
 
 
@@ -20,6 +21,10 @@ class GameController {
     players(id) = new Player(name, symbols(id))
   }
 
+  def createComputer(id:Int, mode:Mode): Unit ={
+    players(id) = new Computer("Computer", symbols(id), mode)
+  }
+
   def createTable(size: Int) = {
     table = new Table(size)
   }
@@ -34,8 +39,8 @@ class GameController {
         current = players(currentId)
         app.statusPane.statusLabel.text.set(current.ROUND)
         app.statusPane.setStatus(current.ROUND)
-        if(current.isInstanceOf[Computer]){
-          current.asInstanceOf[Computer].placeNewSymbol(this)
+        current match {
+          case comp:Computer => comp.placeNewSymbol(this)
         }
         false
       }
