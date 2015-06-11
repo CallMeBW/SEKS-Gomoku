@@ -17,7 +17,8 @@ class Board(gameController: GameController) extends AnchorPane {
       for (b <- 0 to gameController.table.size - 1) {
         val button = new Button {
           text.bind(gameController.table.getEntry(a, b))
-
+          prefHeight = 30
+          prefWidth = 30
           onAction = handle {
             if(gameController.placeSymbolOnTable(a, b)){
               gridPane.children.foreach(f => f.disable.set(true))
