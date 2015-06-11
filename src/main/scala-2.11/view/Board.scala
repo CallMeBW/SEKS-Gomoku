@@ -19,7 +19,9 @@ class Board(gameController: GameController) extends AnchorPane {
           text.bind(gameController.table.getEntry(a, b))
 
           onAction = handle {
-            gameController.placeSymbolOnTable(a, b)
+            if(gameController.placeSymbolOnTable(a, b)){
+              gridPane.children.foreach(f => f.disable.set(true))
+            }
           }
         }
         gridPane.add(button, a, b)
