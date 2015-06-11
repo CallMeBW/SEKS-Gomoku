@@ -2,7 +2,6 @@ package control
 
 import main.GomokuApp
 import model.Player
-import view.Board
 
 
 class GameController {
@@ -25,12 +24,15 @@ class GameController {
     table = new Table(size)
   }
 
-  def placeSymbolOnTable(x:Int, y:Int) = {
+  def placeSymbolOnTable(x:Int, y:Int):Boolean = {
     if(current.placeSymbolOnTable(table, x,y )){
       currentId = currentId + 1
       current = players(currentId % players.length)
       app.statusPane.statusLabel.text.set(current.ROUND)
       app.statusPane.setStatus(current.ROUND)
+      true
+    } else {
+      false
     }
   }
 

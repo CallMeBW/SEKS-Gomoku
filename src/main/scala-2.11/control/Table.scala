@@ -43,7 +43,7 @@ class Table(val size: Int) {
     if (x < 0 || y < 0 || x >= size || y >= size) {
       return 0
     }
-    if (!table(x)(y).equals(s)) {
+    if (!table(x)(y).value.equals(s)) {
       return 0
     }
     dir match {
