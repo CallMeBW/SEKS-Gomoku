@@ -1,7 +1,7 @@
 package control
 
 import main.GomokuApp
-import model.Player
+import model.{Computer, Player}
 
 
 class GameController {
@@ -34,6 +34,9 @@ class GameController {
         current = players(currentId)
         app.statusPane.statusLabel.text.set(current.ROUND)
         app.statusPane.setStatus(current.ROUND)
+        if(current.isInstanceOf[Computer]){
+          current.asInstanceOf[Computer].placeNewSymbol(this)
+        }
         false
       }
     } else {

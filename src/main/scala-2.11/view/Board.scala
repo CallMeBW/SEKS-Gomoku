@@ -12,7 +12,7 @@ class Board(gameController: GameController) extends AnchorPane {
   gridPane.setHgap(1)
   gridPane.setVgap(1)
 
-  def init(): Unit = {
+  def init() = {
     for (a <- 0 to gameController.table.size - 1) {
       for (b <- 0 to gameController.table.size - 1) {
         val button = new Button {
