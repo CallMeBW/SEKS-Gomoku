@@ -63,17 +63,18 @@ class Table(val size: Int) {
         case 7 => calculateNewEasyEntry(x - 1, y + 1, playerIcon, 8)
         case 8 => calculateNewEasyEntry(-1, -1, playerIcon, 0)
       }
-      }
     }
+  }
 
   private def calculateNewMediumEntry(lastX: Int, lastY: Int, playerIcon: String): (Int, Int) = {
-    if (check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1 == 4) {
+
+    if ((check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1) == 4) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 0, 4)
-    } else if (check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1 == 4) {
+    } else if ((check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1) == 4) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 1, 5)
-    } else if (check(lastX, lastY, playerIcon, 2) + check(lastX, lastY, playerIcon, 6) - 1 == 4) {
+    } else if ((check(lastX, lastY, playerIcon, 2) + check(lastX, lastY, playerIcon, 6) - 1) == 4) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 2, 6)
-    } else if (check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1 == 4) {
+    } else if ((check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1) == 4) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 3, 7)
     } else {
       calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
@@ -81,13 +82,13 @@ class Table(val size: Int) {
   }
 
   private def calculateNewHardEntry(lastX: Int, lastY: Int, playerIcon: String): (Int, Int) = {
-    if (check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1 == 3) {
+    if ((check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1) >= 3) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 0, 4)
-    } else if (check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1 == 3) {
+    } else if ((check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1) >= 3) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 1, 5)
-    } else if (check(lastX, lastY, playerIcon, 2) + check(lastX, lastY, playerIcon, 6) - 1 == 3) {
+    } else if ((check(lastX, lastY, playerIcon, 2) + check(lastX, lastY, playerIcon, 6) - 1) >= 3) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 2, 6)
-    } else if (check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1 == 3) {
+    } else if ((check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1) >= 3) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 3, 7)
     } else {
       calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
@@ -134,10 +135,10 @@ class Table(val size: Int) {
   def checkForTie(): Boolean = false
 
   def winTest(x: Int, y: Int, s: String): Boolean =
-    check(x, y, s, 0) + check(x, y, s, 4) - 1 == 5 ||
-      check(x, y, s, 1) + check(x, y, s, 5) - 1 == 5 ||
-      check(x, y, s, 2) + check(x, y, s, 6) - 1 == 5 ||
-      check(x, y, s, 3) + check(x, y, s, 7) - 1 == 5
+    (check(x, y, s, 0) + check(x, y, s, 4) - 1) == 5 ||
+      (check(x, y, s, 1) + check(x, y, s, 5) - 1) == 5 ||
+      (check(x, y, s, 2) + check(x, y, s, 6) - 1) == 5 ||
+      (check(x, y, s, 3) + check(x, y, s, 7) - 1) == 5
 
 
   /**
