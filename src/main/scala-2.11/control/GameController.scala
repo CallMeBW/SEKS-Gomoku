@@ -21,8 +21,8 @@ class GameController {
     players(id) = new Player(name, symbols(id))
   }
 
-  def createComputer(id:Int, mode:Mode): Unit ={
-    players(id) = new Computer("Computer", symbols(id), mode)
+  def createComputer(id:Int, mode:Mode): Unit = {
+    players(id) = new Computer("cpu",symbols(id), mode)
   }
 
   def createTable(size: Int) = {

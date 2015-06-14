@@ -1,13 +1,18 @@
 package view
 
 
+import javafx.beans.{value, InvalidationListener}
+import javafx.beans.value.ObservableStringValue
+import javafx.collections.ObservableList
 import javafx.geometry.Pos
+import javax.swing.event.ChangeListener
 
 import control.GameController
 import main.GomokuApp
 
 import scalafx.Includes._
-import scalafx.scene.control.{Button, Label, Slider, TextField}
+import scalafx.collections.ObservableBuffer
+import scalafx.scene.control._
 import scalafx.scene.layout.AnchorPane
 import scalafx.scene.text.{TextAlignment, Font}
 
@@ -29,6 +34,24 @@ class SetupPane(gameController: GameController) extends AnchorPane {
     layoutY = 80
   }
 
+
+  val checkbox = new CheckBox {
+    selected = false
+    text = "Play against computer"
+    layoutX = 380
+    layoutY = 160
+  }
+
+  val combobox = new ChoiceBox[String](){
+    layoutX = 412
+    layoutY = 190
+    visible.bind(checkbox.selected)
+    delegate.getItems.add("EASY")
+    delegate.getItems.add("MEDIUM")
+    delegate.getItems.add("HARD")
+    delegate.getSelectionModel.select(0)
+  }
+
   val p1TextField = new TextField {
     promptText = GomokuApp.HINT_P1
     layoutX = 170
@@ -38,6 +61,7 @@ class SetupPane(gameController: GameController) extends AnchorPane {
     promptText = GomokuApp.HINT_P2
     layoutX = 380
     layoutY = 190
+    visible.bind(checkbox.selected.not())
   }
   val sizeSlider = new Slider {
     majorTickUnit = 1
@@ -45,10 +69,11 @@ class SetupPane(gameController: GameController) extends AnchorPane {
     min = 5
     max = 20
     snapToTicks = true
-    value = 17
+    value = 12
     layoutX = 285
     layoutY = 300
   }
+
 
   val gridSizeLabel = new Label {
     sizeSlider.value.addListener{ (o: javafx.beans.value.ObservableValue[_ <: Number], oldVal: Number, newVal: Number) =>
@@ -72,7 +97,15 @@ class SetupPane(gameController: GameController) extends AnchorPane {
         p2TextField.text = "Player 2"
       }
       gameController.createPlayer(0, p1TextField.text.value)
-      gameController.createPlayer(1, p2TextField.text.value)
+      if(checkbox.selected.value){
+        gameController.createComputer(1,combobox.delegate.getSelectionModel.getSelectedItem match {
+          case "EASY" => model.Mode.EASY
+          case "MEDIUM" => model.Mode.MEDIUM
+          case "HARD" => model.Mode.HARD
+        })
+      } else{
+        gameController.createPlayer(1, p2TextField.text.value)
+      }
       gameController.createTable(sizeSlider.value.toInt)
       gameController.start()
     }
@@ -81,7 +114,8 @@ class SetupPane(gameController: GameController) extends AnchorPane {
     stylesheets add "style.css"
   }
 
-  children ++= Seq(startButton, welcomeLabel, p1TextField, p2TextField, sizeSlider, descriptionLabel, gridSizeLabel)
+  children ++= Seq(startButton, welcomeLabel, p1TextField, p2TextField,
+    sizeSlider, descriptionLabel, gridSizeLabel,checkbox,combobox)
 
 
 }
