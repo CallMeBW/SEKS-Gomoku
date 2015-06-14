@@ -7,7 +7,10 @@ class Computer(name: String, icon: String, mode:Mode) extends Player(name, icon)
 
   def placeNewSymbol(gameController: GameController) = {
     val player = gameController.players((gameController.currentId + 1) % gameController.players.length)
-    val tuple = gameController.table.calculateNewEntry(player.lastX, player.lastY, player.icon, mode)
+    var tuple = gameController.table.calculateNewEntry(player.lastX, player.lastY, player.icon, mode, player)
+    if(tuple._1 == -1 || tuple._2 == -1){
+      tuple = gameController.table.calculateNewEntry(lastX, lastY, icon, mode, this)
+    }
     gameController.placeSymbolOnTable(tuple._1, tuple._2)
   }
 

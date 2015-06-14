@@ -1,7 +1,7 @@
 package control
 
-import model.Mode
 import model.Mode.Mode
+import model.{Computer, Mode, Player}
 
 import scala.util.Random
 import scalafx.beans.property.StringProperty
@@ -30,16 +30,18 @@ class Table(val size: Int) {
   }
 
 
-  def calculateNewEntry(lastX: Int, lastY: Int, playerIcon: String, mode: Mode): (Int, Int) = mode match {
-    case Mode.EASY =>
-      calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
-    case Mode.MEDIUM =>
-      calculateNewMediumEntry(lastX, lastY, playerIcon)
-    case Mode.HARD =>
-      calculateNewHardEntry(lastX, lastY, playerIcon)
-  }
+  def calculateNewEntry(lastX: Int, lastY: Int, playerIcon: String, mode: Mode, player: Player): (Int, Int) =
+    mode match {
+      case Mode.EASY =>
+        calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
+      case Mode.MEDIUM =>
+        calculateNewMediumEntry(lastX, lastY, playerIcon, player)
+      case Mode.HARD =>
+        calculateNewHardEntry(lastX, lastY, playerIcon, player)
+    }
 
-  private def calculateNewEasyEntry(lastX: Int, lastY: Int, playerIcon: String, dir: Int): (Int, Int) = {
+  private def calculateNewEasyEntry(lastX: Int, lastY: Int, playerIcon: String, dir: Int): (Int, Int)
+  = {
     var x: Int = 0
     var y: Int = 0
     if (lastX >= size || lastY >= size || lastX < 0 || lastY < 0 || lastX == -1 && lastY == -1) {
@@ -66,8 +68,7 @@ class Table(val size: Int) {
     }
   }
 
-  private def calculateNewMediumEntry(lastX: Int, lastY: Int, playerIcon: String): (Int, Int) = {
-
+  private def calculateNewMediumEntry(lastX: Int, lastY: Int, playerIcon: String, player: Player): (Int, Int) = {
     if ((check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1) == 4) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 0, 4)
     } else if ((check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1) == 4) {
@@ -77,11 +78,15 @@ class Table(val size: Int) {
     } else if ((check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1) == 4) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 3, 7)
     } else {
-      calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
+      if (!player.isInstanceOf[Computer]) {
+        (-1, -1)
+      } else {
+        calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
+      }
     }
   }
 
-  private def calculateNewHardEntry(lastX: Int, lastY: Int, playerIcon: String): (Int, Int) = {
+  private def calculateNewHardEntry(lastX: Int, lastY: Int, playerIcon: String, player: Player): (Int, Int) = {
     if ((check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1) >= 3) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 0, 4)
     } else if ((check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1) >= 3) {
@@ -91,7 +96,11 @@ class Table(val size: Int) {
     } else if ((check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1) >= 3) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 3, 7)
     } else {
-      calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
+      if (!player.isInstanceOf[Computer]) {
+        (-1, -1)
+      } else {
+        calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
+      }
     }
   }
 
