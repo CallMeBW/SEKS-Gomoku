@@ -38,8 +38,8 @@ class Table(val size: Int) {
   }
 
   private def calculateNewEasyEntry(lastX: Int, lastY: Int, playerIcon: String, dir: Int): (Int, Int) = {
-    var x: Int = null
-    var y: Int = null
+    var x: Int = 0
+    var y: Int = 0
     if (lastX >= size || lastY >= size || lastX < 0 || lastY < 0 || lastX == -1 && lastY == -1) {
       x = Random.nextInt(size - 1)
       y = Random.nextInt(size - 1)
