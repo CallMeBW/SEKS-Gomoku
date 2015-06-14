@@ -32,6 +32,7 @@ class GameController {
   def placeSymbolOnTable(x:Int, y:Int):Boolean = {
     if(current.placeSymbolOnTable(table, x,y )){
       if(table.winTest(x, y, current.icon)) {
+        println(x + " / " + y + " / " + current.icon)
         app.statusPane.setStatus(current.WON)
         app.setMainPane(app.setupPane)
         true
@@ -44,9 +45,12 @@ class GameController {
         app.statusPane.statusLabel.text.set(current.ROUND)
         app.statusPane.setStatus(current.ROUND)
         current match {
-          case comp:Computer => comp.placeNewSymbol(this)
+          case comp:Computer =>
+            comp.placeNewSymbol(this)
+            false
+          case player:Player =>
+            false
         }
-        false
       }
     } else {
       false

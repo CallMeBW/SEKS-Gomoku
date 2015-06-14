@@ -131,7 +131,7 @@ class Table(val size: Int) {
     }
   }
 
-  def checkForTie(): Boolean = ???
+  def checkForTie(): Boolean = false
 
   def winTest(x: Int, y: Int, s: String): Boolean =
     check(x, y, s, 0) + check(x, y, s, 4) - 1 == 5 ||
