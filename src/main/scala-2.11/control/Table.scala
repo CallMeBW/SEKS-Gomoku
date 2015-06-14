@@ -40,32 +40,32 @@ class Table(val size: Int) {
     }
   }
 
-  private def calculateNewEasyEntry(lastX: Int, lastY: Int, playerIcon: String): (Int, Int) = {
-    def getRandomField(): (Int, Int) = {
-      var randomNumber1 = Random.nextInt(size-1)
-      var randomNumber2 = Random.nextInt(size-1)
-
-      if (table(randomNumber1)(randomNumber2).value.equals("-")) {
-        (randomNumber1, randomNumber2)
-      } else {
-        for (a <- randomNumber1 to size - 1) {
-          randomNumber1 = randomNumber1 + 1
-          for (b <- randomNumber2 to size - 1) {
-            if (table(randomNumber1)(randomNumber2).value.equals("-")) {
-              (randomNumber1, randomNumber2)
-            } else {
-              randomNumber2 = randomNumber2 + 1
-              if (table(randomNumber1)(randomNumber2).value.equals("-")) {
-                (randomNumber1, randomNumber2)
-              }
-            }
-          }
-        }
-        (-1, -1)
+  private def calculateNewEasyEntry(lastX: Int, lastY: Int, playerIcon: String, dir: Int): (Int, Int) = {
+    var x: Int = null
+    var y: Int = null
+    if (lastX >= size || lastY >= size || lastX < 0 || lastY < 0 || lastX == -1 && lastY == -1) {
+      x = Random.nextInt(size - 1)
+      y = Random.nextInt(size - 1)
+    } else {
+      x = lastX;
+      y = lastY;
+    }
+    if (table(x)(y).value.equals("-")) {
+      (x, y)
+    } else {
+      dir match {
+        case 0 => calculateNewEasyEntry(x, y + 1, playerIcon, 1)
+        case 1 => calculateNewEasyEntry(x + 1, y + 1, playerIcon, 2)
+        case 2 => calculateNewEasyEntry(x + 1, y, playerIcon, 3)
+        case 3 => calculateNewEasyEntry(x + 1, y - 1, playerIcon, 4)
+        case 4 => calculateNewEasyEntry(x, y - 1, playerIcon, 5)
+        case 5 => calculateNewEasyEntry(x - 1, y - 1, playerIcon, 6)
+        case 6 => calculateNewEasyEntry(x - 1, y, playerIcon, 7)
+        case 7 => calculateNewEasyEntry(x - 1, y + 1, playerIcon, 8)
+        case 8 => calculateNewEasyEntry(-1, -1, playerIcon, 0)
+      }
       }
     }
-    getRandomField()
-  }
 
   private def calculateNewMediumEntry(lastX: Int, lastY: Int, playerIcon: String): (Int, Int) = {
     if (check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1 == 4) {
