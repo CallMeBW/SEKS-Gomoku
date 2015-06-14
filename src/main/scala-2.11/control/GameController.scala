@@ -35,8 +35,9 @@ class GameController {
         app.statusPane.setStatus(current.WON)
         app.setMainPane(app.setupPane)
         true
-      } else if(table.checkForTie(){
+      } else if(table.checkForTie()) {
         // TODO
+        false
       } else {
         currentId = (currentId + 1) % players.length
         current = players(currentId)
