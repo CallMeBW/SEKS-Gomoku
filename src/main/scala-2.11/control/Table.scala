@@ -3,6 +3,7 @@ package control
 import model.Mode
 import model.Mode.Mode
 
+import scala.util.Random
 import scalafx.beans.property.StringProperty
 
 class Table(val size: Int) {
@@ -30,20 +31,40 @@ class Table(val size: Int) {
 
 
   def calculateNewEntry(lastX: Int, lastY: Int, playerIcon: String, mode: Mode): (Int, Int) = mode match {
-    case Mode.EASY => {
-      calculateNewEasyEntry(lastX, lastY, playerIcon)
-    }
-    case Mode.MEDIUM => {
+    case Mode.EASY =>
+      calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
+    case Mode.MEDIUM =>
       calculateNewMediumEntry(lastX, lastY, playerIcon)
-    }
-    case Mode.HARD => {
+    case Mode.HARD =>
       calculateNewHardEntry(lastX, lastY, playerIcon)
-    }
   }
 
-  private def calculateNewEasyEntry(lastX: Int, lastY: Int, playerIcon: String): (Int, Int) = {
-    (-1, -1)
-  }
+  private def calculateNewEasyEntry(lastX: Int, lastY: Int, playerIcon: String, dir: Int): (Int, Int) = {
+    var x: Int = 0
+    var y: Int = 0
+    if (lastX >= size || lastY >= size || lastX < 0 || lastY < 0 || lastX == -1 && lastY == -1) {
+      x = Random.nextInt(size - 1)
+      y = Random.nextInt(size - 1)
+    } else {
+      x = lastX;
+      y = lastY;
+    }
+    if (table(x)(y).value.equals("-")) {
+      (x, y)
+    } else {
+      dir match {
+        case 0 => calculateNewEasyEntry(x, y + 1, playerIcon, 1)
+        case 1 => calculateNewEasyEntry(x + 1, y + 1, playerIcon, 2)
+        case 2 => calculateNewEasyEntry(x + 1, y, playerIcon, 3)
+        case 3 => calculateNewEasyEntry(x + 1, y - 1, playerIcon, 4)
+        case 4 => calculateNewEasyEntry(x, y - 1, playerIcon, 5)
+        case 5 => calculateNewEasyEntry(x - 1, y - 1, playerIcon, 6)
+        case 6 => calculateNewEasyEntry(x - 1, y, playerIcon, 7)
+        case 7 => calculateNewEasyEntry(x - 1, y + 1, playerIcon, 8)
+        case 8 => calculateNewEasyEntry(-1, -1, playerIcon, 0)
+      }
+      }
+    }
 
   private def calculateNewMediumEntry(lastX: Int, lastY: Int, playerIcon: String): (Int, Int) = {
     if (check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1 == 4) {
@@ -55,7 +76,7 @@ class Table(val size: Int) {
     } else if (check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1 == 4) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 3, 7)
     } else {
-      calculateNewEasyEntry(lastX, lastY, playerIcon)
+      calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
     }
   }
 
@@ -69,7 +90,7 @@ class Table(val size: Int) {
     } else if (check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1 == 3) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 3, 7)
     } else {
-      calculateNewEasyEntry(lastX, lastY, playerIcon)
+      calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
     }
   }
 
@@ -78,7 +99,7 @@ class Table(val size: Int) {
     if (tuple1._1 == -1 || tuple1._2 == -1) {
       val tuple2 = nextDifferentEntry(x, y, s, dir2)
       if (tuple2._1 == -1 || tuple2._2 == -1) {
-        calculateNewEasyEntry(x, y, s)
+        calculateNewEasyEntry(x, y, s, 0)
       } else {
         tuple2
       }
