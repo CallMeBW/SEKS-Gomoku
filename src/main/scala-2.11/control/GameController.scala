@@ -37,7 +37,8 @@ class GameController {
         app.setMainPane(app.setupPane)
         true
       } else if (table.checkForTie()) {
-        // TODO
+        println("TIE")
+        // TODO Brian
         false
       } else {
         currentId = (currentId + 1) % players.length

@@ -10,6 +10,8 @@ class Table(val size: Int) {
 
   require(size >= 5, "Table needs atleast a size of 5")
 
+  var placedCounter = 0
+
   val table = Array.fill[StringProperty](size, size) {
     new StringProperty("-")
   }
@@ -22,6 +24,7 @@ class Table(val size: Int) {
       return false
     }
     table(x)(y).set(s)
+    placedCounter = placedCounter + 1
     true
   }
 
@@ -40,8 +43,7 @@ class Table(val size: Int) {
         calculateNewHardEntry(lastX, lastY, playerIcon, player)
     }
 
-  private def calculateNewEasyEntry(lastX: Int, lastY: Int, playerIcon: String, dir: Int): (Int, Int)
-  = {
+  private def calculateNewEasyEntry(lastX: Int, lastY: Int, playerIcon: String, dir: Int): (Int, Int) = {
     var x: Int = 0
     var y: Int = 0
     if (lastX >= size || lastY >= size || lastX < 0 || lastY < 0 || lastX == -1 && lastY == -1) {
@@ -141,7 +143,7 @@ class Table(val size: Int) {
     }
   }
 
-  def checkForTie(): Boolean = false
+  def checkForTie(): Boolean = placedCounter == size * size
 
   def winTest(x: Int, y: Int, s: String): Boolean =
     (check(x, y, s, 0) + check(x, y, s, 4) - 1) == 5 ||
