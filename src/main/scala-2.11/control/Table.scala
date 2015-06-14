@@ -30,7 +30,7 @@ class Table(val size: Int) {
 
   def calculateNewEntry(lastX: Int, lastY: Int, playerIcon: String, mode: Mode): (Int, Int) = mode match {
     case Mode.EASY =>
-      calculateNewEasyEntry(lastX, lastY, playerIcon)
+      calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
     case Mode.MEDIUM =>
       calculateNewMediumEntry(lastX, lastY, playerIcon)
     case Mode.HARD =>
@@ -74,7 +74,7 @@ class Table(val size: Int) {
     } else if (check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1 == 4) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 3, 7)
     } else {
-      calculateNewEasyEntry(lastX, lastY, playerIcon)
+      calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
     }
   }
 
@@ -88,7 +88,7 @@ class Table(val size: Int) {
     } else if (check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1 == 3) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 3, 7)
     } else {
-      calculateNewEasyEntry(lastX, lastY, playerIcon)
+      calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
     }
   }
 
@@ -97,7 +97,7 @@ class Table(val size: Int) {
     if (tuple1._1 == -1 || tuple1._2 == -1) {
       val tuple2 = nextDifferentEntry(x, y, s, dir2)
       if (tuple2._1 == -1 || tuple2._2 == -1) {
-        calculateNewEasyEntry(x, y, s)
+        calculateNewEasyEntry(x, y, s, 0)
       } else {
         tuple2
       }
