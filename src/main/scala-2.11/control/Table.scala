@@ -29,15 +29,12 @@ class Table(val size: Int) {
   }
 
   def calculateNewEntry(lastX: Int, lastY: Int, playerIcon: String, mode: Mode): (Int, Int) = mode match {
-    case Mode.EASY => {
+    case Mode.EASY =>
       calculateNewEasyEntry(lastX, lastY, playerIcon)
-    }
-    case Mode.MEDIUM => {
+    case Mode.MEDIUM =>
       calculateNewMediumEntry(lastX, lastY, playerIcon)
-    }
-    case Mode.HARD => {
+    case Mode.HARD =>
       calculateNewHardEntry(lastX, lastY, playerIcon)
-    }
   }
 
   private def calculateNewEasyEntry(lastX: Int, lastY: Int, playerIcon: String, dir: Int): (Int, Int) = {
