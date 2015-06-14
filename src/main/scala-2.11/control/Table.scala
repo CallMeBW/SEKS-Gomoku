@@ -6,6 +6,7 @@ import model.Mode.Mode
 import scalafx.beans.property.StringProperty
 
 class Table(val size: Int) {
+
   require(size >= 5, "Table needs atleast a size of 5")
 
   val table = Array.fill[StringProperty](size, size) {
@@ -26,6 +27,7 @@ class Table(val size: Int) {
   def getEntry(x: Int, y: Int): StringProperty = {
     table(x)(y)
   }
+
 
   def calculateNewEntry(lastX: Int, lastY: Int, playerIcon: String, mode: Mode): (Int, Int) = mode match {
     case Mode.EASY => {
@@ -89,9 +91,11 @@ class Table(val size: Int) {
     if (x < 0 || y < 0 || x >= size || y >= size) {
       return (-1, -1)
     }
-    table(x)(y).value match {
-      case "-" => (x, y)
-      case s => dir match {
+
+    if (table(x)(y).value.equals("-")) {
+      (x, y)
+    } else if (table(x)(y).value.equals(s)) {
+      dir match {
         case 0 => nextDifferentEntry(x, y + 1, s, dir)
         case 1 => nextDifferentEntry(x + 1, y + 1, s, dir)
         case 2 => nextDifferentEntry(x + 1, y, s, dir)
@@ -101,9 +105,12 @@ class Table(val size: Int) {
         case 6 => nextDifferentEntry(x - 1, y, s, dir)
         case 7 => nextDifferentEntry(x - 1, y + 1, s, dir)
       }
-      case d: String => (-1, -1)
+    } else {
+      (-1, -1)
     }
   }
+
+  def checkForTie(): Boolean = ???
 
   def winTest(x: Int, y: Int, s: String): Boolean =
     check(x, y, s, 0) + check(x, y, s, 4) - 1 == 5 ||
