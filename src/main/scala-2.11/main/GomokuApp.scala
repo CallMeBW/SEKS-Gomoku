@@ -1,16 +1,20 @@
 package main
 
 
+import javafx.beans.property.ObjectProperty
 import javafx.collections.ObservableList
-import javafx.scene
+import javafx.event.EventHandler
+import javafx.{stage, scene}
 
 import control.GameController
 import view.{Board, SetupPane, StatusPane}
 
+import scala.compat.Platform
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
 import scalafx.scene.layout.{AnchorPane, Pane}
+import scalafx.stage.WindowEvent
 
 object GomokuApp extends JFXApp {
   val WELCOME = "Welcome to Gomoku!"
@@ -45,26 +49,28 @@ object GomokuApp extends JFXApp {
         children add statusPane
       }
     }
+
   }
 
   start()
   stage.centerOnScreen()
   statusPane.prefWidth bind stage.width
   stage.height.onInvalidate { op: scalafx.beans.Observable =>
-    statusPane.layoutY.set(stage.height.value - 90)
-    boardPane.prefHeight = stage.height.value - 90
-  }
-  stage.width.onInvalidate { op: scalafx.beans.Observable =>
-
+    statusPane.layoutY.set(stage.height.value - 80)
+    boardPane.prefHeight = stage.height.value - 80
   }
 
-  statusPane.layoutY = stage.height.value - 90
-  boardPane.prefHeight = stage.height.value - 90
+  statusPane.layoutY = stage.height.value - 80
+  boardPane.prefHeight = stage.height.value - 80
   boardPane.prefWidth bind stage.width
 
-  def setMainPane(panel: Pane): Unit = {
+
+
+    def setMainPane(panel: Pane): Unit = {
     stage.resizable = panel.equals(boardPane)
     if (panel.equals(setupPane)) {
+      stage.minHeight = 0
+      stage.minWidth = 0
       stage.width = 700
       stage.height = 500
       stage.centerOnScreen()
@@ -79,6 +85,7 @@ object GomokuApp extends JFXApp {
     statusPane.setStatus(WELCOME_STATUS)
     stage.show()
   }
+
 
 
 }

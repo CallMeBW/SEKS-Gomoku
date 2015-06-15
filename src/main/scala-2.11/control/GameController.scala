@@ -37,7 +37,9 @@ class GameController {
         GomokuApp.statusPane.setStatus("It's a tie!")
         val timer = new Timer()
         timer.schedule(new TimerTask{
-          def run() = Platform.runLater {GomokuApp.setMainPane(GomokuApp.setupPane)}
+          def run() = Platform.runLater {GomokuApp.setMainPane(GomokuApp.setupPane)
+          timer.cancel()
+          }
         },3000L)
         false
       } else {

@@ -1,18 +1,17 @@
 package view
 
-import java.util.{TimerTask, Timer}
+import java.util.{Timer, TimerTask}
+import javafx.geometry.Pos
 
 import control.GameController
 import main.GomokuApp
 
 import scalafx.Includes._
 import scalafx.application.Platform
-import scalafx.beans.Observable
 import scalafx.scene.control.Button
-import scalafx.scene.layout.{AnchorPane, GridPane}
-import scalafx.scene.paint.Color
+import scalafx.scene.layout.{GridPane, HBox}
 
-class Board(gameController: GameController) extends AnchorPane {
+class Board(gameController: GameController) extends HBox {
   outer =>
   id = "boardpane"
   stylesheets add "style.css"
@@ -34,35 +33,24 @@ class Board(gameController: GameController) extends AnchorPane {
             if (gameController.placeSymbolOnTable(a, b)) {
               gridPane.children.foreach(f => f.disable.set(true))
               val timer = new Timer()
-              timer.schedule(new TimerTask{
-                def run() = Platform.runLater {GomokuApp.setMainPane(GomokuApp.setupPane)}
-              },3000L)
-
+              timer.schedule(new TimerTask {
+                def run() = Platform.runLater {
+                  GomokuApp.setMainPane(GomokuApp.setupPane)
+                  timer.cancel()
+                }
+              }, 3000L)
             }
           }
         }
         gridPane.add(button, a, b)
       }
     }
-    outer.height.onInvalidate { op: Observable =>
-      gridPane.layoutY = (outer.height.toInt - gridPane.height.toInt) / 2.0
-    }
-    outer.width.onInvalidate {
-      gridPane.layoutX = (outer.width.toInt - gridPane.width.toInt) / 2.0
-    }
-
-    gridPane.layoutX = (outer.prefWidth.toInt - gridPane.width.toInt) / 2.0
-    gridPane.layoutY = (outer.prefHeight.toInt - gridPane.height.toInt) / 2.0
-
-    gridPane.width.onInvalidate { op: Observable =>
-      GomokuApp.stage.minWidth = gridPane.width.value + 100
-    }
-    gridPane.height.onInvalidate { op: Observable =>
-      GomokuApp.stage.minHeight = gridPane.height.value + 100
-    }
-
+    gridPane.alignment = Pos.CENTER
+    alignment = Pos.CENTER
+    GomokuApp.stage.minHeight = prefHeight.value + 200
+    GomokuApp.stage.minWidth = prefWidth.value + 10
 
   }
 
-  children add gridPane
-}
+    children add gridPane
+  }
