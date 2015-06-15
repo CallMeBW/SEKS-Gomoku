@@ -1,5 +1,5 @@
 .button {
-	-fx-background-color: #DFB951;
+    -fx-background-color: #DFB951;
     -fx-text-fill: #006464;
 }
 
@@ -28,14 +28,6 @@
 }
 
 #ingamebutton:disabled {
-    -fx-background-color: #DFB951;
-    -fx-text-fill: #006464;
-    -fx-border-color: black;
-    -fx-border-width: 0.2;
-    -fx-border-radius: 0;
-    -fx-background-radius: 0;
-    -fx-font-size: 15;
-    -fx-padding: 0;
-    -fx-label-padding: 0;
+    -fx-opacity: 1.0;
 }
 

@@ -16,7 +16,7 @@ class StatusPane extends AnchorPane { outer =>
     alignment = scalafx.geometry.Pos.CENTER
     text = "Hallo Welt"
     font = new Font(17)
-    padding = Insets(0,50,0,50)
+    padding = Insets(5,50,0,50)
   }
   prefWidth.onInvalidate { op: scalafx.beans.Observable =>
     statusLabel.prefWidth = prefWidth.value
