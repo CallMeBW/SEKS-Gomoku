@@ -1,21 +1,20 @@
 package control
 
+import java.util.{TimerTask, Timer}
+
 import main.GomokuApp
 import model.Mode.Mode
 import model.{Computer, Player}
 
+import scalafx.application.Platform
+
 
 class GameController {
 
-  var app: GomokuApp.type = null
   var table: Table = null
   val players = new Array[Player](2)
   var current: Player = null
   var currentId = -1
-
-  def setGomokuApp(gomApp: GomokuApp.type) = {
-    app = gomApp
-  }
 
   def createPlayer(id: Int, name: String) = {
     players(id) = new Player(name, symbols(id))
@@ -33,18 +32,25 @@ class GameController {
     if (current.placeSymbolOnTable(table, x, y)) {
       if (table.winTest(x, y, current.icon)) {
         println(x + " / " + y + " / " + current.icon)
-        app.statusPane.setStatus(current.WON)
-        app.setMainPane(app.setupPane)
+        GomokuApp.statusPane.setStatus(current.WON)
+        val timer = new Timer()
+        timer.schedule(new TimerTask{
+          def run() = Platform.runLater {GomokuApp.setMainPane(GomokuApp.setupPane)}
+        },3000L)
         true
       } else if (table.checkForTie()) {
         println("TIE")
-        // TODO Brian
+        GomokuApp.statusPane.setStatus("It's a tie!")
+        val timer = new Timer()
+        timer.schedule(new TimerTask{
+          def run() = Platform.runLater {GomokuApp.setMainPane(GomokuApp.setupPane)}
+        },3000L)
         false
       } else {
         currentId = (currentId + 1) % players.length
         current = players(currentId)
-        app.statusPane.statusLabel.text.set(current.ROUND)
-        app.statusPane.setStatus(current.ROUND)
+        GomokuApp.statusPane.statusLabel.text.set(current.ROUND)
+        GomokuApp.statusPane.setStatus(current.ROUND)
         current match {
           case comp: Computer =>
             comp.placeNewSymbol(this)
@@ -61,8 +67,8 @@ class GameController {
   def start() = {
     currentId = 0
     current = players(currentId)
-    app.setMainPane(app.boardPane)
-    app.boardPane.init()
+    GomokuApp.setMainPane(GomokuApp.boardPane)
+    GomokuApp.boardPane.init()
   }
 
 }

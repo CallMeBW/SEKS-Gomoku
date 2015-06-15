@@ -32,7 +32,6 @@ class Board(gameController: GameController) extends AnchorPane {
         gridPane.add(button, a, b)
       }
     }
-    gameController.app.stage.resizable = true
     outer.height.addListener { (o: javafx.beans.value.ObservableValue[_ <: Number], oldVal: Number, newVal: Number) =>
 //      gridPane.layoutY = (outer.prefHeight.toInt - gridPane.height.toInt) / 4.0
     }

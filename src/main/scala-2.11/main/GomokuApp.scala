@@ -9,6 +9,7 @@ import view.{Board, SetupPane, StatusPane}
 
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
+import scalafx.beans.value.ObservableValue
 import scalafx.scene.Scene
 import scalafx.scene.layout.{Pane, AnchorPane}
 
@@ -22,7 +23,6 @@ object GomokuApp extends JFXApp {
 
   val controller = new GameController
   val setupPane = new SetupPane(controller) {
-    prefWidth = 700
     prefHeight = 440
   }
   val boardPane = new Board(controller) {
@@ -30,16 +30,14 @@ object GomokuApp extends JFXApp {
     prefHeight = 440
   }
   val statusPane = new StatusPane {
-    prefWidth = 700
     prefHeight = 60
-    layoutY = 420
   }
 
   stage = new PrimaryStage {
     title.value = "Gomoku"
     width = 700
     height = 500
-    resizable = false
+    resizable = true
     scene = new Scene {
       mainChildren = content
       content = new AnchorPane {
@@ -49,6 +47,11 @@ object GomokuApp extends JFXApp {
     }
   }
   start()
+  statusPane.prefWidth bind stage.width
+  stage.height.onInvalidate { op: scalafx.beans.Observable  =>
+    statusPane.layoutY.set( stage.height.value - 100)
+  }
+  statusPane.layoutY.set( stage.height.value - 100)
 
   def setMainPane(panel: Pane): Unit = {
     mainChildren.clear()
@@ -58,7 +61,6 @@ object GomokuApp extends JFXApp {
 
 
   def start() = {
-    controller.setGomokuApp(this)
     statusPane.setStatus(WELCOME_STATUS)
     stage.show()
   }
