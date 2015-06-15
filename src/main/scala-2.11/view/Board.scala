@@ -1,14 +1,20 @@
 package view
 
+import java.util.{TimerTask, Timer}
+
 import control.GameController
+import main.GomokuApp
 
 import scalafx.Includes._
+import scalafx.application.Platform
 import scalafx.scene.control.Button
 import scalafx.scene.layout.{AnchorPane, GridPane}
+import scalafx.scene.paint.Color
 
 class Board(gameController: GameController) extends AnchorPane {
   outer =>
-
+  id = "boardpane"
+  stylesheets add "style.css"
   val gridPane = new GridPane()
   gridPane.setHgap(0)
   gridPane.setVgap(0)
@@ -26,19 +32,35 @@ class Board(gameController: GameController) extends AnchorPane {
           onAction = handle {
             if (gameController.placeSymbolOnTable(a, b)) {
               gridPane.children.foreach(f => f.disable.set(true))
+              val timer = new Timer()
+              timer.schedule(new TimerTask{
+                def run() = Platform.runLater {GomokuApp.setMainPane(GomokuApp.setupPane)}
+              },3000L)
+
             }
           }
         }
         gridPane.add(button, a, b)
       }
     }
-    outer.height.addListener { (o: javafx.beans.value.ObservableValue[_ <: Number], oldVal: Number, newVal: Number) =>
-//      gridPane.layoutY = (outer.prefHeight.toInt - gridPane.height.toInt) / 4.0
+    outer.height.onInvalidate { op: scalafx.beans.Observable =>
+      gridPane.layoutY = (outer.height.toInt - gridPane.height.toInt) / 2.0
     }
-    outer.width.addListener { (o: javafx.beans.value.ObservableValue[_ <: Number], oldVal: Number, newVal: Number) =>
+    outer.width.onInvalidate { op: scalafx.beans.Observable =>
       gridPane.layoutX = (outer.width.toInt - gridPane.width.toInt) / 2.0
     }
-    gridPane.layoutX = (outer.width.toInt - gridPane.width.toInt) / 2.0
+
+    gridPane.layoutX = (outer.prefWidth.toInt - gridPane.width.toInt) / 2.0
+    gridPane.layoutY = (outer.prefHeight.toInt - gridPane.height.toInt) / 2.0
+
+    gridPane.width.onInvalidate { op: scalafx.beans.Observable =>
+      GomokuApp.stage.minWidth = gridPane.width.value + 100
+    }
+    gridPane.height.onInvalidate { op: scalafx.beans.Observable =>
+      GomokuApp.stage.minHeight = gridPane.height.value + 100
+    }
+
+
   }
 
   children add gridPane

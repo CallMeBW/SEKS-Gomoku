@@ -1,10 +1,13 @@
 package view
 
+import main.GomokuApp._
+
+import scalafx.geometry.Insets
 import scalafx.scene.control.Label
 import scalafx.scene.layout.AnchorPane
 import scalafx.scene.text.{Font, TextAlignment}
 
-class StatusPane extends AnchorPane {
+class StatusPane extends AnchorPane { outer =>
   stylesheets add "style.css"
   id = "statusPane"
   val statusLabel = new Label() {
@@ -13,9 +16,10 @@ class StatusPane extends AnchorPane {
     alignment = scalafx.geometry.Pos.CENTER
     text = "Hallo Welt"
     font = new Font(17)
-    prefWidth = 600
-    prefHeight = 50
-    layoutX = 50
+    padding = Insets(5,50,0,50)
+  }
+  prefWidth.onInvalidate { op: scalafx.beans.Observable =>
+    statusLabel.prefWidth = prefWidth.value
   }
   children add statusLabel
 
