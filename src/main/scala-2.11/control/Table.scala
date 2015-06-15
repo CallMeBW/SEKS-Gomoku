@@ -3,11 +3,11 @@ package control
 import model.Mode.Mode
 import model.{Computer, Mode, Player}
 
+import scala.annotation.tailrec
 import scala.util.Random
 import scalafx.beans.property.StringProperty
 
 class Table(val size: Int) {
-
   require(size >= 5, "Table needs atleast a size of 5")
 
   var placedCounter = 0
@@ -43,7 +43,7 @@ class Table(val size: Int) {
         calculateNewHardEntry(lastX, lastY, playerIcon, player)
     }
 
-  private def calculateNewEasyEntry(lastX: Int, lastY: Int, playerIcon: String, dir: Int): (Int, Int) = {
+  @tailrec private def calculateNewEasyEntry(lastX: Int, lastY: Int, playerIcon: String, dir: Int): (Int, Int) = {
     var x: Int = 0
     var y: Int = 0
     if (lastX >= size || lastY >= size || lastX < 0 || lastY < 0 || lastX == -1 && lastY == -1) {
@@ -70,7 +70,8 @@ class Table(val size: Int) {
     }
   }
 
-  private def calculateNewMediumEntry(lastX: Int, lastY: Int, playerIcon: String, player: Player): (Int, Int) = {
+  private def calculateNewMediumEntry(lastX: Int, lastY: Int, playerIcon: String, player: Player): (Int,
+    Int) = {
     if ((check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1) == 4) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 0, 4)
     } else if ((check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1) == 4) {
@@ -89,15 +90,20 @@ class Table(val size: Int) {
   }
 
   private def calculateNewHardEntry(lastX: Int, lastY: Int, playerIcon: String, player: Player): (Int, Int) = {
-    if ((check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1) >= 3) {
+    val NS = check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1
+    val WO = check(lastX, lastY, playerIcon, 2) + check(lastX, lastY, playerIcon, 6) - 1
+    val NWSO = check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1
+    val NOSW = check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1
+
+    if(NS >= 3 && NS > WO && NS > NWSO && NS > NOSW){
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 0, 4)
-    } else if ((check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1) >= 3) {
-      calculateNewDifferentEntry(lastX, lastY, playerIcon, 1, 5)
-    } else if ((check(lastX, lastY, playerIcon, 2) + check(lastX, lastY, playerIcon, 6) - 1) >= 3) {
+    } else if(WO >= 3 && WO >= NS && WO >= NWSO && WO >= NOSW){
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 2, 6)
-    } else if ((check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1) >= 3) {
+    } else if(NWSO >= 3 && NWSO >= NS && NWSO >= WO && NWSO >= NOSW){
+      calculateNewDifferentEntry(lastX, lastY, playerIcon, 1, 5)
+    } else if(NOSW >= 3 && NOSW >= NS && NOSW >= WO && NOSW >= NWSO){
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 3, 7)
-    } else {
+    }  else {
       if (!player.isInstanceOf[Computer]) {
         (-1, -1)
       } else {
@@ -120,7 +126,7 @@ class Table(val size: Int) {
     }
   }
 
-  private def nextDifferentEntry(x: Int, y: Int, s: String, dir: Int): (Int, Int) = {
+  @tailrec private def nextDifferentEntry(x: Int, y: Int, s: String, dir: Int): (Int, Int) = {
     if (x < 0 || y < 0 || x >= size || y >= size) {
       return (-1, -1)
     }

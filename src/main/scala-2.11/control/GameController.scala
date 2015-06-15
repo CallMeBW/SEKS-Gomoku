@@ -48,7 +48,6 @@ class GameController {
         current match {
           case comp: Computer =>
             comp.placeNewSymbol(this)
-            false
           case player: Player =>
             false
         }
