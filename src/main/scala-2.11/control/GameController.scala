@@ -1,6 +1,6 @@
 package control
 
-import java.util.{TimerTask, Timer}
+import java.util.{Timer, TimerTask}
 
 import main.GomokuApp
 import model.Mode.Mode
@@ -16,8 +16,8 @@ class GameController {
   var current: Player = null
   var currentId = -1
 
-  def createPlayer(id: Int, name: String) = {
-    players(id) = new Player(name, symbols(id))
+  def createPlayer(id: Int, name: String, symbol: String) = {
+    players(id) = new Player(name, if (symbol.length == 1) symbol else symbols(id))
   }
 
   def createComputer(id: Int, mode: Mode): Unit = {
@@ -36,11 +36,12 @@ class GameController {
       } else if (table.checkForTie()) {
         GomokuApp.statusPane.setStatus("It's a tie!")
         val timer = new Timer()
-        timer.schedule(new TimerTask{
-          def run() = Platform.runLater {GomokuApp.setMainPane(GomokuApp.setupPane)
-          timer.cancel()
+        timer.schedule(new TimerTask {
+          def run() = Platform.runLater {
+            GomokuApp.setMainPane(GomokuApp.setupPane)
+            timer.cancel()
           }
-        },3000L)
+        }, 3000L)
         false
       } else {
         currentId = (currentId + 1) % players.length

@@ -1,6 +1,7 @@
 package view
 
 
+import java.awt.Toolkit
 import javafx.beans.{value, InvalidationListener}
 import javafx.beans.value.ObservableStringValue
 import javafx.collections.ObservableList
@@ -56,13 +57,32 @@ class SetupPane(gameController: GameController) extends AnchorPane {
     promptText = GomokuApp.HINT_P1
     layoutX = 170
     layoutY = 190
+    prefWidth = 110
+  }
+  val p1SymField = new TextField {
+    alignment = Pos.CENTER
+    promptText = "\u2715"
+    layoutX = 282
+    layoutY = 190
+    prefWidth = 35
+    visible.bind(checkbox.selected.not())
   }
   val p2TextField = new TextField {
     promptText = GomokuApp.HINT_P2
     layoutX = 380
     layoutY = 190
+    prefWidth = 110
     visible.bind(checkbox.selected.not())
   }
+  val p2SymField = new TextField {
+    alignment = Pos.CENTER
+    promptText = "\u25CB"
+    layoutX = 492
+    layoutY = 190
+    prefWidth = 35
+    visible.bind(checkbox.selected.not())
+  }
+
   val sizeSlider = new Slider {
     majorTickUnit = 1
     minorTickCount = 1
@@ -96,7 +116,7 @@ class SetupPane(gameController: GameController) extends AnchorPane {
       if(p2TextField.text.length().intValue() == 0){
         p2TextField.text = "Player 2"
       }
-      gameController.createPlayer(0, p1TextField.text.value)
+      gameController.createPlayer(0, p1TextField.text.value,p1SymField.text.value)
       if(checkbox.selected.value){
         gameController.createComputer(1,combobox.delegate.getSelectionModel.getSelectedItem match {
           case "EASY" => model.Mode.EASY
@@ -104,7 +124,7 @@ class SetupPane(gameController: GameController) extends AnchorPane {
           case "HARD" => model.Mode.HARD
         })
       } else{
-        gameController.createPlayer(1, p2TextField.text.value)
+        gameController.createPlayer(1, p2TextField.text.value,p2SymField.text.value)
       }
       gameController.createTable(sizeSlider.value.toInt)
       gameController.start()
@@ -114,8 +134,27 @@ class SetupPane(gameController: GameController) extends AnchorPane {
     stylesheets add "style.css"
   }
 
+  p1SymField.text.onInvalidate{
+    if(p1SymField.text.value.length > 1){
+      Toolkit.getDefaultToolkit.beep()
+      p1SymField.text = p1SymField.text.value.substring(0,1)
+    }
+    if(p1SymField.text.value.equals(p2SymField.text.value) && !p1SymField.text.value.equals("")){
+      p2SymField.text = ""
+    }
+  }
+  p2SymField.text.onInvalidate{
+    if(p2SymField.text.value.length > 1){
+      Toolkit.getDefaultToolkit.beep()
+      p2SymField.text = p2SymField.text.value.substring(0,1)
+    }
+    if(p2SymField.text.value.equals(p1SymField.text.value) &&  !p2SymField.text.value.equals("")){
+      p1SymField.text = ""
+    }
+  }
+
   children ++= Seq(startButton, welcomeLabel, p1TextField, p2TextField,
-    sizeSlider, descriptionLabel, gridSizeLabel,checkbox,combobox)
+    sizeSlider, descriptionLabel, gridSizeLabel,checkbox,combobox,p2SymField,p1SymField)
 
 
 }

@@ -5,7 +5,7 @@ import control.Table
 class Player(val name: String, val icon: String) {
   require(name != null, "Players need a name")
 
-  val WON = s"$name won the game."
+  val WON = s"$name wins the game."
   val ROUND = s"It's $name's turn."
 
   var lastX: Int = -1
