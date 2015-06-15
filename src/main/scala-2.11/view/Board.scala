@@ -43,14 +43,24 @@ class Board(gameController: GameController) extends AnchorPane {
         gridPane.add(button, a, b)
       }
     }
-    outer.height.addListener { (o: javafx.beans.value.ObservableValue[_ <: Number], oldVal: Number, newVal: Number) =>
+    outer.height.onInvalidate { op: scalafx.beans.Observable =>
       gridPane.layoutY = (outer.height.toInt - gridPane.height.toInt) / 2.0
     }
-    outer.width.addListener { (o: javafx.beans.value.ObservableValue[_ <: Number], oldVal: Number, newVal: Number) =>
+    outer.width.onInvalidate { op: scalafx.beans.Observable =>
       gridPane.layoutX = (outer.width.toInt - gridPane.width.toInt) / 2.0
     }
-    gridPane.layoutX = (outer.width.toInt - gridPane.width.toInt) / 2.0
-    gridPane.layoutY = (outer.height.toInt - gridPane.height.toInt) / 2.0
+
+    gridPane.layoutX = (outer.prefWidth.toInt - gridPane.width.toInt) / 2.0
+    gridPane.layoutY = (outer.prefHeight.toInt - gridPane.height.toInt) / 2.0
+
+    gridPane.width.onInvalidate { op: scalafx.beans.Observable =>
+      GomokuApp.stage.minWidth = gridPane.width.value + 100
+    }
+    gridPane.height.onInvalidate { op: scalafx.beans.Observable =>
+      GomokuApp.stage.minHeight = gridPane.height.value + 100
+    }
+
+
   }
 
   children add gridPane

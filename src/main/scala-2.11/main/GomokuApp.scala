@@ -45,7 +45,9 @@ object GomokuApp extends JFXApp {
       }
     }
   }
+
   start()
+  stage.centerOnScreen()
   statusPane.prefWidth bind stage.width
   stage.height.onInvalidate { op: scalafx.beans.Observable =>
     statusPane.layoutY.set(stage.height.value - 90)
@@ -64,6 +66,7 @@ object GomokuApp extends JFXApp {
     if (panel.equals(setupPane)) {
       stage.width = 700
       stage.height = 500
+      stage.centerOnScreen()
     }
     mainChildren.clear()
     mainChildren.add(statusPane)

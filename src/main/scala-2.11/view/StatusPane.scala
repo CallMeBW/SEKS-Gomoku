@@ -20,7 +20,6 @@ class StatusPane extends AnchorPane { outer =>
   }
   prefWidth.onInvalidate { op: scalafx.beans.Observable =>
     statusLabel.prefWidth = prefWidth.value
-    println(width.value)
   }
   children add statusLabel
 

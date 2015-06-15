@@ -31,11 +31,9 @@ class GameController {
   def placeSymbolOnTable(x: Int, y: Int): Boolean = {
     if (current.placeSymbolOnTable(table, x, y)) {
       if (table.winTest(x, y, current.icon)) {
-        println(x + " / " + y + " / " + current.icon)
         GomokuApp.statusPane.setStatus(current.WON)
         true
       } else if (table.checkForTie()) {
-        println("TIE")
         GomokuApp.statusPane.setStatus("It's a tie!")
         val timer = new Timer()
         timer.schedule(new TimerTask{
@@ -63,8 +61,8 @@ class GameController {
   def start() = {
     currentId = 0
     current = players(currentId)
-    GomokuApp.setMainPane(GomokuApp.boardPane)
     GomokuApp.boardPane.init()
+    GomokuApp.setMainPane(GomokuApp.boardPane)
   }
 
 }

@@ -28,6 +28,6 @@
 }
 
 #ingamebutton:disabled {
-    -fx-opacity: 1.0;
+    -fx-opacity: 0.8;
 }
 
