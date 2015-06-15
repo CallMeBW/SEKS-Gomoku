@@ -33,10 +33,6 @@ class GameController {
       if (table.winTest(x, y, current.icon)) {
         println(x + " / " + y + " / " + current.icon)
         GomokuApp.statusPane.setStatus(current.WON)
-        val timer = new Timer()
-        timer.schedule(new TimerTask{
-          def run() = Platform.runLater {GomokuApp.setMainPane(GomokuApp.setupPane)}
-        },3000L)
         true
       } else if (table.checkForTie()) {
         println("TIE")

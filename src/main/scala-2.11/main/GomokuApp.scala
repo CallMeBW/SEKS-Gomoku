@@ -9,9 +9,8 @@ import view.{Board, SetupPane, StatusPane}
 
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
-import scalafx.beans.value.ObservableValue
 import scalafx.scene.Scene
-import scalafx.scene.layout.{Pane, AnchorPane}
+import scalafx.scene.layout.{AnchorPane, Pane}
 
 object GomokuApp extends JFXApp {
   val WELCOME = "Welcome to Gomoku!"
@@ -37,7 +36,7 @@ object GomokuApp extends JFXApp {
     title.value = "Gomoku"
     width = 700
     height = 500
-    resizable = true
+    resizable = false
     scene = new Scene {
       mainChildren = content
       content = new AnchorPane {
@@ -48,12 +47,24 @@ object GomokuApp extends JFXApp {
   }
   start()
   statusPane.prefWidth bind stage.width
-  stage.height.onInvalidate { op: scalafx.beans.Observable  =>
-    statusPane.layoutY.set( stage.height.value - 100)
+  stage.height.onInvalidate { op: scalafx.beans.Observable =>
+    statusPane.layoutY.set(stage.height.value - 90)
+    boardPane.prefHeight = stage.height.value - 90
   }
-  statusPane.layoutY.set( stage.height.value - 100)
+  stage.width.onInvalidate { op: scalafx.beans.Observable =>
+
+  }
+
+  statusPane.layoutY = stage.height.value - 90
+  boardPane.prefHeight = stage.height.value - 90
+  boardPane.prefWidth bind stage.width
 
   def setMainPane(panel: Pane): Unit = {
+    stage.resizable = panel.equals(boardPane)
+    if (panel.equals(setupPane)) {
+      stage.width = 700
+      stage.height = 500
+    }
     mainChildren.clear()
     mainChildren.add(statusPane)
     mainChildren.add(panel)
