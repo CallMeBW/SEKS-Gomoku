@@ -1,5 +1,6 @@
 package control
 
+import main.GomokuApp
 import model.Mode.Mode
 import model.{Computer, Mode, Player}
 
@@ -13,14 +14,14 @@ class Table(val size: Int) {
   var placedCounter = 0
 
   val table = Array.fill[StringProperty](size, size) {
-    new StringProperty("")
+    new StringProperty(GomokuApp.EMPTY_FIELD)
   }
 
   def setEntry(x: Int, y: Int, s: String): Boolean = {
     if (x < 0 || y < 0 || x >= size || y >= size) {
       return false
     }
-    if (!table(x)(y).value.equals("")) {
+    if (!table(x)(y).value.equals(GomokuApp.EMPTY_FIELD)) {
       return false
     }
     table(x)(y).set(s)
@@ -53,7 +54,7 @@ class Table(val size: Int) {
       x = lastX;
       y = lastY;
     }
-    if (table(x)(y).value.equals("")) {
+    if (table(x)(y).value.equals(GomokuApp.EMPTY_FIELD)) {
       (x, y)
     } else {
       dir match {
@@ -125,7 +126,7 @@ class Table(val size: Int) {
       return (-1, -1)
     }
 
-    if (table(x)(y).value.equals("")) {
+    if (table(x)(y).value.equals(GomokuApp.EMPTY_FIELD)) {
       (x, y)
     } else if (table(x)(y).value.equals(s)) {
       dir match {

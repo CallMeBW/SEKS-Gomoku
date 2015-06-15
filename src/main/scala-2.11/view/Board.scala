@@ -7,6 +7,7 @@ import main.GomokuApp
 
 import scalafx.Includes._
 import scalafx.application.Platform
+import scalafx.beans.Observable
 import scalafx.scene.control.Button
 import scalafx.scene.layout.{AnchorPane, GridPane}
 import scalafx.scene.paint.Color
@@ -43,20 +44,20 @@ class Board(gameController: GameController) extends AnchorPane {
         gridPane.add(button, a, b)
       }
     }
-    outer.height.onInvalidate { op: scalafx.beans.Observable =>
+    outer.height.onInvalidate { op: Observable =>
       gridPane.layoutY = (outer.height.toInt - gridPane.height.toInt) / 2.0
     }
-    outer.width.onInvalidate { op: scalafx.beans.Observable =>
+    outer.width.onInvalidate {
       gridPane.layoutX = (outer.width.toInt - gridPane.width.toInt) / 2.0
     }
 
     gridPane.layoutX = (outer.prefWidth.toInt - gridPane.width.toInt) / 2.0
     gridPane.layoutY = (outer.prefHeight.toInt - gridPane.height.toInt) / 2.0
 
-    gridPane.width.onInvalidate { op: scalafx.beans.Observable =>
+    gridPane.width.onInvalidate { op: Observable =>
       GomokuApp.stage.minWidth = gridPane.width.value + 100
     }
-    gridPane.height.onInvalidate { op: scalafx.beans.Observable =>
+    gridPane.height.onInvalidate { op: Observable =>
       GomokuApp.stage.minHeight = gridPane.height.value + 100
     }
 

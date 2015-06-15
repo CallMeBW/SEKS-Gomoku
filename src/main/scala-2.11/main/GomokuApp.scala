@@ -18,6 +18,7 @@ object GomokuApp extends JFXApp {
   val WELCOME_MESSAGE = "Gomoku is a game for two players. The players alternately put their symbol on the board. The player who has 5 of his symbols in a row wins Gomoku."
   val HINT_P1 = "Player 1"
   val HINT_P2 = "Player 2"
+  val EMPTY_FIELD = ""
   private var mainChildren: ObservableList[scene.Node] = null
 
   val controller = new GameController
