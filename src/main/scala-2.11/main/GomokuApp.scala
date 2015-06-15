@@ -4,6 +4,7 @@ package main
 import javafx.beans.property.ObjectProperty
 import javafx.collections.ObservableList
 import javafx.event.EventHandler
+import javafx.scene.image.Image
 import javafx.{stage, scene}
 
 import control.GameController
@@ -49,7 +50,7 @@ object GomokuApp extends JFXApp {
         children add statusPane
       }
     }
-
+    icons.add(new Image("gomokulogo.png"))
   }
 
   start()
