@@ -96,7 +96,7 @@ class Table(val size: Int) {
     val NWSO = check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1
     val NOSW = check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1
 
-    if(NS >= 3 && NS > WO && NS > NWSO && NS > NOSW){
+    if(NS >= 3 && NS >= WO && NS >= NWSO && NS >= NOSW){
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 0, 4)
     } else if(WO >= 3 && WO >= NS && WO >= NWSO && WO >= NOSW){
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 2, 6)
