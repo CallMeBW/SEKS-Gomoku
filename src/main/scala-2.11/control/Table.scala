@@ -129,10 +129,8 @@ class Table(val size: Int) {
 
   @tailrec private def nextDifferentEntry(x: Int, y: Int, s: String, dir: Int): (Int, Int) = {
     if (x < 0 || y < 0 || x >= size || y >= size) {
-      return (-1, -1)
-    }
-
-    if (table(x)(y).value.equals(GomokuApp.EMPTY_FIELD)) {
+      (-1, -1)
+    } else if (table(x)(y).value.equals(GomokuApp.EMPTY_FIELD)) {
       (x, y)
     } else if (table(x)(y).value.equals(s)) {
       dir match {
