@@ -17,11 +17,11 @@ class GameController {
   var currentId = -1
 
   def createPlayer(id: Int, name: String, symbol: String) = {
-    players(id) = new Player(name, if (symbol.length == 1) symbol else symbols(id))
+    players(id) = new Player(name,if (symbol.length == 1) symbol else symbols(id))
   }
 
-  def createComputer(id: Int, mode: Mode): Unit = {
-    players(id) = new Computer("Computer", symbols(id), mode)
+  def createComputer(id: Int, mode: Mode, symbol: String): Unit = {
+    players(id) = new Computer("Computer", if (symbol.length == 1) symbol else symbols(id), mode)
   }
 
   def createTable(size: Int) = {

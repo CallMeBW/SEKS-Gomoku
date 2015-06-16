@@ -44,7 +44,7 @@ class SetupPane(gameController: GameController) extends AnchorPane {
   }
 
   val combobox = new ChoiceBox[String](){
-    layoutX = 412
+    layoutX = 400
     layoutY = 190
     visible.bind(checkbox.selected)
     delegate.getItems.add("EASY")
@@ -65,7 +65,6 @@ class SetupPane(gameController: GameController) extends AnchorPane {
     layoutX = 282
     layoutY = 190
     prefWidth = 35
-    visible.bind(checkbox.selected.not())
   }
   val p2TextField = new TextField {
     promptText = GomokuApp.HINT_P2
@@ -80,7 +79,6 @@ class SetupPane(gameController: GameController) extends AnchorPane {
     layoutX = 492
     layoutY = 190
     prefWidth = 35
-    visible.bind(checkbox.selected.not())
   }
 
   val sizeSlider = new Slider {
@@ -122,7 +120,7 @@ class SetupPane(gameController: GameController) extends AnchorPane {
           case "EASY" => model.Mode.EASY
           case "MEDIUM" => model.Mode.MEDIUM
           case "HARD" => model.Mode.HARD
-        })
+        },p2SymField.text.value)
       } else{
         gameController.createPlayer(1, p2TextField.text.value,p2SymField.text.value)
       }
