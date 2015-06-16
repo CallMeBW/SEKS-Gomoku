@@ -96,7 +96,7 @@ class Table(val size: Int) {
     val NWSO = check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1
     val NOSW = check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1
 
-    if(NS >= 3 && NS > WO && NS > NWSO && NS > NOSW){
+    if(NS >= 3 && NS >= WO && NS >= NWSO && NS >= NOSW){
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 0, 4)
     } else if(WO >= 3 && WO >= NS && WO >= NWSO && WO >= NOSW){
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 2, 6)
@@ -129,10 +129,8 @@ class Table(val size: Int) {
 
   @tailrec private def nextDifferentEntry(x: Int, y: Int, s: String, dir: Int): (Int, Int) = {
     if (x < 0 || y < 0 || x >= size || y >= size) {
-      return (-1, -1)
-    }
-
-    if (table(x)(y).value.equals(GomokuApp.EMPTY_FIELD)) {
+      (-1, -1)
+    } else if (table(x)(y).value.equals(GomokuApp.EMPTY_FIELD)) {
       (x, y)
     } else if (table(x)(y).value.equals(s)) {
       dir match {
