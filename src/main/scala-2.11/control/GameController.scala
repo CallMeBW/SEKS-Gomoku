@@ -63,6 +63,7 @@ class GameController {
   def start() = {
     currentId = 0
     current = players(currentId)
+    GomokuApp.statusPane.statusLabel.text.set(current.ROUND)
     GomokuApp.boardPane.init()
     GomokuApp.setMainPane(GomokuApp.boardPane)
   }

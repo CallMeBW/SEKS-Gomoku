@@ -44,6 +44,7 @@ class SetupPane(gameController: GameController) extends AnchorPane {
   }
 
   val combobox = new ChoiceBox[String](){
+
     layoutX = 400
     layoutY = 190
     visible.bind(checkbox.selected)
