@@ -85,7 +85,7 @@ class Table(val size: Int) {
       if (!player.isInstanceOf[Computer]) {
         (-1, -1)
       } else {
-        calculateNewEasyEntry(-1, -1, playerIcon, 0)
+        calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
       }
     }
   }
