@@ -37,7 +37,7 @@ class Table(val size: Int) {
   def calculateNewEntry(lastX: Int, lastY: Int, playerIcon: String, mode: Mode, player: Player): (Int, Int) =
     mode match {
       case Mode.EASY =>
-        calculateNewEasyEntry(-1, -1, playerIcon, 0)
+        calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
       case Mode.MEDIUM =>
         calculateNewMediumEntry(lastX, lastY, playerIcon, player)
       case Mode.HARD =>
@@ -108,7 +108,7 @@ class Table(val size: Int) {
       if (!player.isInstanceOf[Computer]) {
         (-1, -1)
       } else {
-        calculateNewEasyEntry(-1, -1, playerIcon, 0)
+        calculateNewEasyEntry(lastX, lastY, playerIcon, 0)
       }
     }
   }
