@@ -51,8 +51,8 @@ class Table(val size: Int) {
       x = Random.nextInt(size - 1)
       y = Random.nextInt(size - 1)
     } else {
-      x = lastX;
-      y = lastY;
+      x = lastX
+      y = lastY
     }
     if (table(x)(y).value.equals(GomokuApp.EMPTY_FIELD)) {
       (x, y)
@@ -73,13 +73,13 @@ class Table(val size: Int) {
 
   private def calculateNewMediumEntry(lastX: Int, lastY: Int, playerIcon: String, player: Player): (Int,
     Int) = {
-    if ((check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1) == 4) {
+    if ((check(lastX, lastY, playerIcon, 0, 0) + check(lastX, lastY, playerIcon, 4, 0) - 1) == 4) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 0, 4)
-    } else if ((check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1) == 4) {
+    } else if ((check(lastX, lastY, playerIcon, 1, 0) + check(lastX, lastY, playerIcon, 5, 0) - 1) == 4) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 1, 5)
-    } else if ((check(lastX, lastY, playerIcon, 2) + check(lastX, lastY, playerIcon, 6) - 1) == 4) {
+    } else if ((check(lastX, lastY, playerIcon, 2, 0) + check(lastX, lastY, playerIcon, 6, 0) - 1) == 4) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 2, 6)
-    } else if ((check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1) == 4) {
+    } else if ((check(lastX, lastY, playerIcon, 3, 0) + check(lastX, lastY, playerIcon, 7, 0) - 1) == 4) {
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 3, 7)
     } else {
       if (!player.isInstanceOf[Computer]) {
@@ -91,10 +91,10 @@ class Table(val size: Int) {
   }
 
   private def calculateNewHardEntry(lastX: Int, lastY: Int, playerIcon: String, player: Player): (Int, Int) = {
-    val NS = check(lastX, lastY, playerIcon, 0) + check(lastX, lastY, playerIcon, 4) - 1
-    val WO = check(lastX, lastY, playerIcon, 2) + check(lastX, lastY, playerIcon, 6) - 1
-    val NWSO = check(lastX, lastY, playerIcon, 1) + check(lastX, lastY, playerIcon, 5) - 1
-    val NOSW = check(lastX, lastY, playerIcon, 3) + check(lastX, lastY, playerIcon, 7) - 1
+    val NS = check(lastX, lastY, playerIcon, 0, 0) + check(lastX, lastY, playerIcon, 4, 0) - 1
+    val WO = check(lastX, lastY, playerIcon, 2, 0) + check(lastX, lastY, playerIcon, 6, 0) - 1
+    val NWSO = check(lastX, lastY, playerIcon, 1, 0) + check(lastX, lastY, playerIcon, 5, 0) - 1
+    val NOSW = check(lastX, lastY, playerIcon, 3, 0) + check(lastX, lastY, playerIcon, 7, 0) - 1
 
     if(NS >= 3 && NS >= WO && NS >= NWSO && NS >= NOSW){
       calculateNewDifferentEntry(lastX, lastY, playerIcon, 0, 4)
@@ -150,32 +150,34 @@ class Table(val size: Int) {
 
   def checkForTie(): Boolean = placedCounter == size * size
 
+
   def winTest(x: Int, y: Int, s: String): Boolean =
-    (check(x, y, s, 0) + check(x, y, s, 4) - 1) == 5 ||
-      (check(x, y, s, 1) + check(x, y, s, 5) - 1) == 5 ||
-      (check(x, y, s, 2) + check(x, y, s, 6) - 1) == 5 ||
-      (check(x, y, s, 3) + check(x, y, s, 7) - 1) == 5
+    (check(x, y, s, 0,0) + check(x, y, s, 4, 0) - 1) == 5 ||      // vertical
+      (check(x, y, s, 1,0) + check(x, y, s, 5, 0) - 1) == 5 ||    // diagonal
+      (check(x, y, s, 2, 0) + check(x, y, s, 6, 0) - 1) == 5 ||   // horizontal
+      (check(x, y, s, 3, 0) + check(x, y, s, 7, 0) - 1) == 5      // diagonal
 
 
   /**
    * Kaz-Mayer-Algorithm
    */
-  private def check(x: Int, y: Int, s: String, dir: Int): Int = {
-    if (x < 0 || y < 0 || x >= size || y >= size) {
-      return 0
+  @tailrec private def check(x: Int, y: Int, s: String, dir: Int, value:Int): Int = {
+    if (x < 0 || y < 0 || x >= size || y >= size) {       // out of field
+      return value
     }
-    if (!table(x)(y).value.equals(s)) {
-      return 0
-    }
-    dir match {
-      case 0 => 1 + check(x, y + 1, s, dir)
-      case 1 => 1 + check(x + 1, y + 1, s, dir)
-      case 2 => 1 + check(x + 1, y, s, dir)
-      case 3 => 1 + check(x + 1, y - 1, s, dir)
-      case 4 => 1 + check(x, y - 1, s, dir)
-      case 5 => 1 + check(x - 1, y - 1, s, dir)
-      case 6 => 1 + check(x - 1, y, s, dir)
-      case 7 => 1 + check(x - 1, y + 1, s, dir)
+    if (!table(x)(y).value.equals(s)) {                   // not equals
+      value
+    } else {                                              // equals
+      dir match {
+        case 0 => check(x, y + 1, s, dir, value + 1)      // N
+        case 1 => check(x + 1, y + 1, s, dir, value + 1)  // NE
+        case 2 => check(x + 1, y, s, dir, value + 1)      // E
+        case 3 => check(x + 1, y - 1, s, dir, value + 1)  // SE
+        case 4 => check(x, y - 1, s, dir, value + 1)      // S
+        case 5 => check(x - 1, y - 1, s, dir, value + 1)  // SW
+        case 6 => check(x - 1, y, s, dir, value + 1)      // W
+        case 7 => check(x - 1, y + 1, s, dir, value + 1)  // NW
+      }
     }
   }
 }
